@@ -16,16 +16,17 @@ public class Player : MonoBehaviour
 
     [Header("Playerstate checks")]
     public bool canMove;
-    private bool dashReloading, isDashing;    
+    private bool dashReloading, isDashing, isShooting;
 
     [Header("Objects references")]
     public GameObject shipVisual;
     public Collider playerCollider;
-    public Transform FirePoint;
+    public Transform firePoint;
     public GameObject bulletPrefab;
 
     [Header("Shots properties")]
-    public float reloadShot;
+    public float reloadTime;
+    private float reloadTimer;
 
     [Header("Player health properties")]
     public int life;
@@ -41,19 +42,28 @@ public class Player : MonoBehaviour
 
     private void Update(){
 
-        // on déroule les timers pour la fréquence de tir et la réutilisation du dash
-        if(reloadShot > 0f){
-            reloadShot -= Time.deltaTime;
+        // on déroule les timers pour la fréquence de tir
+        // et la réutilisation du dash
+        if(reloadTimer > 0f){
+            reloadTimer -= Time.deltaTime;
         }
         if(dashTime > 0f){
             dashTime -= Time.deltaTime;
         }        
 
         CalculateMovement();
+        PerformShooting();
 
         if (life <= 0){
             PlayerDeath();
         }
+    }
+
+
+    /////////Movements section////////
+    public void MovementInput(InputAction.CallbackContext value){
+        Vector2 inputMagnitude = value.ReadValue<Vector2>();
+        movementMagnitude = inputMagnitude.normalized;
     }
 
     private void CalculateMovement(){
@@ -62,7 +72,7 @@ public class Player : MonoBehaviour
         futurePos.y += movementMagnitude.y * baseVerticalSpeed * Time.deltaTime;
 
         if(canMove){
-            transform.localPosition = futurePos;    
+            transform.localPosition = futurePos;
         }
 
         ClampPosition();
@@ -77,16 +87,39 @@ public class Player : MonoBehaviour
         transform.position = Camera.main.ViewportToWorldPoint(pos);
     }
 
-    void UpdateRotation()
+    private void UpdateRotation()
     {
         Vector3 newRotation = new Vector3(0f, -(movementMagnitude.x * rotationMagnitude) + 180f, -90f);
         Quaternion newQuaternion = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
         shipVisual.transform.rotation = Quaternion.RotateTowards(shipVisual.transform.rotation, newQuaternion, rotationSpeed);
     }
+    ////////////////////////////////////
 
-    public void MovementInput(InputAction.CallbackContext value){
-        Vector2 inputMagnitude = value.ReadValue<Vector2>();
-        movementMagnitude = inputMagnitude.normalized;
+    //////////Fire main weapon section////////
+    public void FireInput(InputAction.CallbackContext button){
+        if(button.started){
+            isShooting = true;
+        }
+
+        if(button.canceled){
+            isShooting = false;
+        }
+    }
+
+    private void PerformShooting(){
+        if(isShooting && reloadTimer <= 0){
+            Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+            reloadTimer = reloadTime;
+        }
+    }
+    //////////////////////////////////////////
+
+    public void TakeDamage(int receivedDamage){
+        life -= receivedDamage;
+    }
+
+    public void GainHealth(int receivedHealth){
+        life += receivedHealth;
     }
 
     private void PlayerDeath(){

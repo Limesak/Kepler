@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Main : SingletonPersistent<Main> 
+public class Main : SingletonPersistent<Main>
 {
     [SerializeField] private GameObject player;
 
