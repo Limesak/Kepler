@@ -54,6 +54,8 @@ public class Player : MonoBehaviour
         CalculateMovement();
         PerformShooting();
 
+        main.UpdateLifeHUD(life);
+
         if (life <= 0){
             PlayerDeath();
         }

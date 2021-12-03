@@ -23,12 +23,14 @@ public class Bullet : MonoBehaviour
 
         DetectCollision(previousPos, newPos);
 
+        // Détruit l'objet si sort de l'écran
         if (transform.position.y >= 11)
         {
             Destroy(gameObject);
         }
     }
 
+    // Collision pour les petits objets rapides
     private void DetectCollision(Vector2 previousPos, Vector2 newPos){
         int mask = 1 << 3;
 
@@ -40,6 +42,7 @@ public class Bullet : MonoBehaviour
     }
 
     private void DistributeDamage(GameObject target){
-
+        target.transform.parent.gameObject.GetComponent<Asteroid>().TakeDamage(damage);
+        Destroy(gameObject);
     }
 }
