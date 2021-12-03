@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Main : MonoBehaviour 
+public class Main : SingletonPersistent<Main> 
 {
+    [SerializeField] private GameObject player;
 
-	/* PROPRIETES DU MAIN */
-
-	// référence vers le prefab de l'Enemy, dont on va se servir pour Instantier tous les Enemy du jeu
-	// la variable est en "public", on peut donc la régler dans l'editor
-	public Transform asteroidPrefab;
-    public Transform collectiblePrefab;
+    [Header("Enemy prefabs")]
+	public GameObject asteroidPrefab;
+    public GameObject collectiblePrefab;
     public GameObject SquadLeader;
 
-	// champ texte du HUD qui affiche la valeur de vie du Player
-	// la variable est en "public", on peut donc la régler dans l'editor
+	[Header("UI references")]
 	public TextMeshPro lifeText;
 
     public TextMeshPro scoreText;
@@ -32,7 +29,23 @@ public class Main : MonoBehaviour
 	// la variable est en "public", on peut donc la régler dans l'editor
 	public GameObject startScreen;
 
-	// la variable gameTimer va nous servir à tracker le temps qui passe pour pouvoir spawner les enemy
+    [Header("Game current state")]
+	public string stateOfPlay;
+
+    // bool qui indique la vague
+    bool fieldPhase;
+    bool squadPhase;
+
+    bool isSquadPhaseStarted = false;
+
+    [Header("Enemies spawn properties")]
+    public GameObject spawner;
+    public GameObject bossSpawner;
+
+    // tracks number of killed opponents
+    public int killCount = 0;
+    public int enemiesLeft = 25;
+    	// la variable gameTimer va nous servir à tracker le temps qui passe pour pouvoir spawner les enemy
 	float gameTimer;
 
     // temps de spawn des collectibles
@@ -46,60 +59,46 @@ public class Main : MonoBehaviour
     // intervalle de temps entre les spawn de collectible
     public float spawnCollectibleDelay = 3f;
 
-	// bool qui indique si la partie est en cours ou si le joueur est sur un menu
-	bool isPlaying;
+    PauseAction pauseAction;
 
-    // bool qui indique la vague
-    bool fieldPhase;
-    bool squadPhase;
+    public override void Awake(){
+        base.Awake();
+        pauseAction = new PauseAction();
+    }
 
-    bool IssquadPhaseStarted = false;
+    private void OnEnable(){
+        pauseAction.Enable();
+    }
 
-    public GameObject spawner;
+    private void OnDisable(){
+        pauseAction.Disable();
+    }
 
-    public GameObject bossSpawner;
-
-    public GameObject player;
-
-    // tracks number of killed opponents
-    public int killCount = 0;
-    public int enemiesLeft = 25;
-
-
-
-	/* FONCTIONS DU MAIN */
-
-	// la fonction start est appellée automatiquement au début du jeu
 	void Start () 
 	{
-		// on affiche l'écran start en activant le gameObject correspondant
-		// SetActive() via code équivaut à cocher/décocher la box en haut à gauche de l'inspector d'un gameObject
-		startScreen.SetActive(true);        
+        pauseAction.Pause.PauseGame.performed += _ => ChoosePauseAction();
+		startScreen.SetActive(true);
+        stateOfPlay = "Start_Screen";
 	}
 
-	// fonction qui lance la partie, appellée lorsque le joueur clique sur le bouton de l'écran start
+	// Lance la partie en appuyant sur start sur le premier écran
 	public void StartGame()
 	{
-		// on cache l'écran start en désactivant le gameObject correspondant
+        stateOfPlay = "Active_Game";
 		startScreen.SetActive(false);
-
-		// on passe le bool isPlaying à true pour indiquer que la partie vient de commencer
-		isPlaying = true;
-
+        player.SetActive(true);
         fieldPhase = true;
         squadPhase = false;
 	}
 
-	// la fonction Update s'effectue automatiquement à chaque frame
-	// l'Update du Main gère nottament le spawn des Enemy
 	// à chaque frame, la variable gameTimer va s'incrémenter
 	// lorque la valeur de gameTimer est supérieure ou égale à celle de spawnDelay, on Instantiate un Enemy
 	void Update () 
 	{
 		// on execute le code de spawn des Enemy seulement si la partie a été lancée, c'set à dire si le bool isPlaying est true
-		if(isPlaying)
+		if(stateOfPlay.Equals("Active_Game"))
 		{
-            player.SetActive(true);
+            
 
 			// à chaque frame, on incrémente gameTimer pour représenter le temps qui passe
 			// Time.deltatime représente le temps écoulé depuis la dernière frame
@@ -110,7 +109,7 @@ public class Main : MonoBehaviour
             if (SpawnGo == 1 && fieldPhase)
             {
                 spawner.SetActive(true);
-                IssquadPhaseStarted = false;
+                isSquadPhaseStarted = false;
             }
 
             else if(SpawnGo == 0 && !fieldPhase)
@@ -136,28 +135,36 @@ public class Main : MonoBehaviour
                 spawner.SetActive(false);
             }
 
-            if (squadPhase && !IssquadPhaseStarted)
+            if (squadPhase && !isSquadPhaseStarted)
             {
                 bossSpawner.GetComponent<spawningBoss>().SpawnTheBoss();
-                IssquadPhaseStarted = true;
+                isSquadPhaseStarted = true;
             }
-        }
-        if (Input.GetButtonDown("Start") && isPlaying)
-        {
-            pausegame();
         }
     }
 
-    public void pausegame()
-    {
-        if (Time.timeScale == 1)
-        {
-            Time.timeScale = 0;
+    private void ChoosePauseAction(){
+        switch (stateOfPlay){
+            case "Start_Screen":
+                StartGame();
+                break;
+            case "Active_Game":
+                PauseGame();
+                break;
+            case "Paused_Game":
+                ResumeGame();
+                break;
         }
-        else if (Time.timeScale == 0)
-        {
-            Time.timeScale = 1;
-        }
+    }
+
+    public void PauseGame(){
+        Time.timeScale = 0;
+        stateOfPlay = "Paused_Game";
+    }
+
+    private void ResumeGame(){
+        Time.timeScale = 1;
+        stateOfPlay = "Active_Game";
     }
 
     public void SpawningEnemies()
@@ -180,7 +187,7 @@ public class Main : MonoBehaviour
 
         }
 
-        // puisque l'on vient de faire spawner un Enemy, on erset la valeur de gametimer à 0
+        // puisque l'on vient de faire spawner un Enemy, on reset la valeur de gametimer à 0
         // si on ne le fait pas, gameTimer sera toujours supérieur à spawnTimer lors de la prochaine frame, et le script fera ainsi spawner un nouvel Enemy
         gameTimer = 0;
     }
@@ -227,10 +234,8 @@ public class Main : MonoBehaviour
         killCount = 0;
     }
 
-	// la fonction UpdateLifeHUD permet de changer l'affichage du champ texte représentant la vie sur le HUD
 	public void UpdateLifeHUD(int newLifeValue)
 	{
-		// pour convertir un int (newLifeValue) en string et l'afficher en texte, on utilise l'opération "" + int
 		lifeText.text = "" + newLifeValue;
 	}
 
@@ -251,11 +256,7 @@ public class Main : MonoBehaviour
 
 	public void EndGame()
 	{
-		// on passe le bool isPlaying à false pour signaler que la partie est terminée et stopper le spawn des Enemy
-		isPlaying = false;
-
 		endScreen.SetActive(true);
-
         spawner.SetActive(false);
     }
 

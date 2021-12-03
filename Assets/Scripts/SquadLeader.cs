@@ -73,7 +73,7 @@ public class SquadLeader : MonoBehaviour {
         {
             main.GetComponent<Main>().UpdatePhase();
             main.GetComponent<Main>().resetKills();
-            player.GetComponent<Player>().addBossReward();
+            //player.GetComponent<Player>().addBossReward();
             Destroy(gameObject);
         }
 	}
