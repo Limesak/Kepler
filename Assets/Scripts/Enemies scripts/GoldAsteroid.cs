@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldAsteroid : MonoBehaviour {
-
+public class GoldAsteroid : EnemyHitHandler 
+{
+    [Header("Movements")]
     public float movementSpeed = 4f;
-    private float randomScale;
-    public Rigidbody2D rb;
-    private int health;
-    public GameObject goldPoint;
-    public GameObject particles;
+    private Vector2 travelDirection;
 
-    // Use this for initialization
+    [Header("Properties and stats")]
+    public GameObject goldPoint;
+    private float randomScale;
+    private int damage = 1;
+    private int startingHealth;
+
     void Start () {
         randomScale = Random.Range(0.8f, 3f);
 
@@ -30,49 +32,34 @@ public class GoldAsteroid : MonoBehaviour {
             health = 6;
         }
 
-
+        startingHealth = health;
         transform.localScale = new Vector3(randomScale, randomScale, 1);
-        rb.velocity = transform.up * -movementSpeed;
+        travelDirection = -transform.up;
     }
 	
-	// Update is called once per frame
 	void Update () {
-        if (health <= 0)
-        {
-            Instantiate(particles, transform.position, transform.rotation);
-            if (randomScale <= 1f)
-            {
-                Instantiate(goldPoint, transform.position + (Vector3) Random.insideUnitCircle*randomScale, transform.rotation);
-                Instantiate(goldPoint, transform.position + (Vector3) Random.insideUnitCircle*randomScale, transform.rotation);
-            }
-            if (randomScale > 1f && randomScale <= 2f)
-            {
-                Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-                Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-                Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-                Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-            }
-            if (randomScale > 2f && randomScale <= 3f)
-            {
-                Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-                Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-                Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-                Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-                Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-                Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-            }
+        Vector2 previousPos = transform.localPosition;
+        Vector2 direction = transform.localPosition;
+        direction += travelDirection * movementSpeed * Time.deltaTime;
+        transform.localPosition = direction;
+        Vector2 newPos = transform.localPosition;
 
-            Destroy(gameObject);
+        checkDeath();
+    }
+
+    private void OnDestroy(){
+        for(int i = 0; i < (startingHealth * 3); i++){
+            Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
+        }        
+    }
+
+    private void OnTriggerEnter(Collider other){
+        if(other.gameObject.layer.Equals(6)){
+            DistributeDamage(other.gameObject);
         }
     }
 
-// Destroy bullet on collision and applies damage
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Bullet")
-        {
-        health--;
-        Destroy(other.gameObject);
-        }
+    private void DistributeDamage(GameObject target){
+        target.transform.parent.gameObject.GetComponent<Player>().TakeDamage(damage);
     }
 }

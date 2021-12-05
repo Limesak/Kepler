@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SquadLeader : MonoBehaviour {
-
-    private int health = 30;
+public class SquadLeader : EnemyHitHandler 
+{
     private float protection = 0f;
-    public GameObject main;
     public GameObject player;
     public GameObject minion;
     public GameObject shot;
@@ -21,11 +19,7 @@ public class SquadLeader : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (main == null)
-        {
-            main = GameObject.FindWithTag("Main");
-            player = GameObject.FindWithTag("Player");
-        }
+
 	}
 	
 	// Update is called once per frame
@@ -69,26 +63,6 @@ public class SquadLeader : MonoBehaviour {
             transform.Translate(Vector3.down * 1.3f * Time.deltaTime, Space.World);
         }
 
-        if (health == 0)
-        {
-            main.GetComponent<Main>().UpdatePhase();
-            main.GetComponent<Main>().resetKills();
-            //player.GetComponent<Player>().addBossReward();
-            Destroy(gameObject);
-        }
+        checkDeath();
 	}
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Bullet" && protection <= 0)
-        {
-            health--;
-            protection = 0.7f;
-        }
-
-        if(other.gameObject.tag == "Bullet")
-        {
-            Destroy(other.gameObject);
-        }
-    }
 }

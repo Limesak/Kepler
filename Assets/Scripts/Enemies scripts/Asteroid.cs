@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : EnemyHitHandler
 {
     [Header("Movements")]
     public float movementSpeed = 4f;
@@ -10,11 +10,7 @@ public class Asteroid : MonoBehaviour
 
     [Header("Properties and stats")]
     private float randomScale;
-    private int health;
     private int damage = 1;
-
-    [Header("Particules, prefabs, sounds")]
-    public GameObject particles;
 
     void Start()
     {
@@ -47,11 +43,7 @@ public class Asteroid : MonoBehaviour
         transform.localPosition = direction;
         Vector2 newPos = transform.localPosition;
 
-        if (health <= 0)
-        {
-            Instantiate(particles, transform.position, transform.rotation);
-            Destroy(gameObject);
-        }
+        checkDeath();
     }
 
     private void OnTriggerEnter(Collider other){
@@ -62,9 +54,5 @@ public class Asteroid : MonoBehaviour
 
     private void DistributeDamage(GameObject target){
         target.transform.parent.gameObject.GetComponent<Player>().TakeDamage(damage);
-    }
-
-    public void TakeDamage(int receivedDamage){
-        health -= receivedDamage;
     }
 }

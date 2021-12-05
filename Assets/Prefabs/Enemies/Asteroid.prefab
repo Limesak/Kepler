@@ -46,8 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e443041a5f6774581f5db3e43c0577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
+  health: 0
   particles: {fileID: 1205300976700008, guid: 8f7360efd4de1764cb046972e00076dc, type: 3}
+  canDrop: 0
+  itemDrop: {fileID: 0}
+  movementSpeed: 2
 --- !u!54 &6696491890312265852
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -74,7 +77,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4716322433991982}
   - component: {fileID: 212963566951640496}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpriteAsteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -2,39 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyScript : MonoBehaviour {
+public class EnemyScript : EnemyHitHandler 
+{
+    [Header("Movements")]
+    public float speed;
+    private Vector2 travelDirection;
 
-    private int health = 2;
-    public Rigidbody2D rb;
-    public float UFOspeed;
-    private int randomBonus;
-    public GameObject bonus;
+    [Header("Stats")]
+    private int damage = 1;
 
     private void Start()
     {
-        rb.velocity = transform.up * -UFOspeed;
-        randomBonus = Random.Range(1, 5);
+        travelDirection = -transform.up;
     }
 
     // Update is called once per frame
     void Update() {
-        if (health == 0)
-        {
-            GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().AddOneKill();
-            if (randomBonus == 4)
-            {
-                Instantiate(bonus, transform.position, transform.rotation);
-            }
-            Destroy(gameObject);
+        Vector2 previousPos = transform.localPosition;
+        Vector2 direction = transform.localPosition;
+        direction += travelDirection * speed * Time.deltaTime;
+        transform.localPosition = direction;
+        Vector2 newPos = transform.localPosition;
+
+        checkDeath();
+    }
+
+    private void OnTriggerEnter(Collider other){
+        if(other.gameObject.layer.Equals(6)){
+            DistributeDamage(other.gameObject);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Bullet")
-        {
-            health--;
-            Destroy(other.gameObject);
-        }
+    private void DistributeDamage(GameObject target){
+        target.transform.parent.gameObject.GetComponent<Player>().TakeDamage(damage);
     }
 }

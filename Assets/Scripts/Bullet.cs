@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
     }
 
     private void DistributeDamage(GameObject target){
-        target.transform.parent.gameObject.GetComponent<Asteroid>().TakeDamage(damage);
+        target.GetComponent<EnemyHitHandler>().SendMessage("TakeDamage", damage);
         Destroy(gameObject);
     }
 }
