@@ -63,6 +63,6 @@ public class SquadLeader : EnemyHitHandler
             transform.Translate(Vector3.down * 1.3f * Time.deltaTime, Space.World);
         }
 
-        checkDeath();
+        checkDeath(health, 0f);
 	}
 }

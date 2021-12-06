@@ -43,7 +43,7 @@ public class Asteroid : EnemyHitHandler
         transform.localPosition = direction;
         Vector2 newPos = transform.localPosition;
 
-        checkDeath();
+        checkDeath(health, randomScale);
     }
 
     private void OnTriggerEnter(Collider other){

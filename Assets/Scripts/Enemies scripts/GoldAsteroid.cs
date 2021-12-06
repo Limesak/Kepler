@@ -9,7 +9,6 @@ public class GoldAsteroid : EnemyHitHandler
     private Vector2 travelDirection;
 
     [Header("Properties and stats")]
-    public GameObject goldPoint;
     private float randomScale;
     private int damage = 1;
     private int startingHealth;
@@ -44,13 +43,7 @@ public class GoldAsteroid : EnemyHitHandler
         transform.localPosition = direction;
         Vector2 newPos = transform.localPosition;
 
-        checkDeath();
-    }
-
-    private void OnDestroy(){
-        for(int i = 0; i < (startingHealth * 3); i++){
-            Instantiate(goldPoint, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-        }        
+        checkDeath(startingHealth, randomScale);
     }
 
     private void OnTriggerEnter(Collider other){

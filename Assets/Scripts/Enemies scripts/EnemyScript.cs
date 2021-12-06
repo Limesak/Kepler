@@ -11,9 +11,11 @@ public class EnemyScript : EnemyHitHandler
     [Header("Stats")]
     private int damage = 1;
 
-    private void Start()
-    {
+    Main main;
+
+    private void Start(){
         travelDirection = -transform.up;
+        main = Main.Instance;
     }
 
     // Update is called once per frame
@@ -24,7 +26,7 @@ public class EnemyScript : EnemyHitHandler
         transform.localPosition = direction;
         Vector2 newPos = transform.localPosition;
 
-        checkDeath();
+        checkDeath(health, 0f);
     }
 
     private void OnTriggerEnter(Collider other){
@@ -35,5 +37,9 @@ public class EnemyScript : EnemyHitHandler
 
     private void DistributeDamage(GameObject target){
         target.transform.parent.gameObject.GetComponent<Player>().TakeDamage(damage);
+    }
+
+    private void OnDestroy(){
+        main.AddOneKill();
     }
 }
