@@ -78,11 +78,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 30
-  particles: {fileID: 0}
+  scoreToGive: 500
+  particles: {fileID: 1205300976700008, guid: 8f7360efd4de1764cb046972e00076dc, type: 3}
+  progessKillCount: 0
   canDrop: 0
-  isBoss: 0
+  dropsPoints: 0
   itemDrop: {fileID: 0}
-  scoreToGive: 0
+  isBoss: 1
   player: {fileID: 0}
   minion: {fileID: 1866592091060772, guid: 7f9d2c51e6064a141af940ae72991ace, type: 3}
   shot: {fileID: 1631086615930166, guid: e5b8dec30fb777d4fb4d924a399ed54c, type: 3}

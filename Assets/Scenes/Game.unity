@@ -124,51 +124,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &8125027
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8125028}
-  - component: {fileID: 8125029}
-  m_Layer: 0
-  m_Name: EnemiesSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8125028
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8125027}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 883161600}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8125029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8125027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d9d6516b5b81174194f4f4ac15ce794, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisUFO: {fileID: 1050946176780698, guid: 085b5f0d91977264a91a3f5c2f3b8b02, type: 3}
-  spawn: {fileID: 883161600}
 --- !u!1 &103962216
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,12 +313,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1805860924}
-  asteroidPrefab: {fileID: 1176831350063416, guid: 430dd81eec4f18a49999856924eab9c0,
-    type: 3}
-  collectiblePrefab: {fileID: 1149429942496600, guid: 56eec8f4d2d014f4c9d09b382413a9e3,
-    type: 3}
-  SquadLeader: {fileID: 1282724100677580, guid: e62a2bc74a5560f4caa922ec36c05475,
-    type: 3}
   lifeText: {fileID: 254357975}
   scoreText: {fileID: 667959384}
   endScreenText: {fileID: 1114767098}
@@ -371,12 +320,11 @@ MonoBehaviour:
   endScreen: {fileID: 886360878}
   startScreen: {fileID: 1380843219}
   stateOfPlay: 
-  spawner: {fileID: 883161598}
-  bossSpawner: {fileID: 1183284276}
+  phaseOfBattle: 
+  enemiesLeft: 1
   killCount: 0
-  enemiesLeft: 25
-  spawnDelay: 1.5
-  spawnCollectibleDelay: 3
+  currentLevel: 0
+  currentScore: 0
 --- !u!4 &236499117
 Transform:
   m_ObjectHideFlags: 0
@@ -1420,13 +1368,38 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 883161600}
+  - component: {fileID: 883161599}
   m_Layer: 0
   m_Name: PositionSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
+--- !u!114 &883161599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883161598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d3beefcd48db743a9348252d10fc79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  standardFighter: {fileID: 1050946176780698, guid: 085b5f0d91977264a91a3f5c2f3b8b02,
+    type: 3}
+  asteroid: {fileID: 1176831350063416, guid: 430dd81eec4f18a49999856924eab9c0, type: 3}
+  goldenAsteroid: {fileID: 1968150777788086, guid: e5c1db17ecf4a2d4a93e7864897fbdc8,
+    type: 3}
+  bossFighter: {fileID: 1282724100677580, guid: e62a2bc74a5560f4caa922ec36c05475,
+    type: 3}
+  bossSpawned: 0
+  spawnTransform: {fileID: 883161600}
+  standardFighterDelay: 4
+  asteroidDelay: 0.5
+  goldenAsteroiddDelay: 7
 --- !u!4 &883161600
 Transform:
   m_ObjectHideFlags: 0
@@ -1437,10 +1410,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.3645262, y: 10.515844, z: 0.32602638}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8125028}
-  - {fileID: 1261803268}
-  - {fileID: 1183284278}
+  m_Children: []
   m_Father: {fileID: 349750757}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1747,97 +1717,6 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
---- !u!1 &1183284276
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1183284278}
-  - component: {fileID: 1183284277}
-  m_Layer: 0
-  m_Name: BossSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1183284277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1183284276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c41d2ad0d840a4492d1cf92383e5a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossLeader: {fileID: 1282724100677580, guid: e62a2bc74a5560f4caa922ec36c05475, type: 3}
-  spawn: {fileID: 1183284278}
---- !u!4 &1183284278
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1183284276}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8800001, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 883161600}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1261803267
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1261803268}
-  - component: {fileID: 1261803269}
-  m_Layer: 0
-  m_Name: GoldAsteroidSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1261803268
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1261803267}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 883161600}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1261803269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1261803267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d7f649b8cee46429b57dde076624ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisgoldenrock: {fileID: 1968150777788086, guid: e5c1db17ecf4a2d4a93e7864897fbdc8,
-    type: 3}
-  spawn: {fileID: 883161600}
 --- !u!1 &1380843219
 GameObject:
   m_ObjectHideFlags: 0

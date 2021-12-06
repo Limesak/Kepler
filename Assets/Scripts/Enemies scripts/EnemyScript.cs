@@ -8,17 +8,13 @@ public class EnemyScript : EnemyHitHandler
     public float speed;
     private Vector2 travelDirection;
 
-    [Header("Stats")]
+    [Header("Damage")]
     private int damage = 1;
-
-    Main main;
 
     private void Start(){
         travelDirection = -transform.up;
-        main = Main.Instance;
     }
 
-    // Update is called once per frame
     void Update() {
         Vector2 previousPos = transform.localPosition;
         Vector2 direction = transform.localPosition;
@@ -37,9 +33,5 @@ public class EnemyScript : EnemyHitHandler
 
     private void DistributeDamage(GameObject target){
         target.transform.parent.gameObject.GetComponent<Player>().TakeDamage(damage);
-    }
-
-    private void OnDestroy(){
-        main.AddOneKill();
     }
 }

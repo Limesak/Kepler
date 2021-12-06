@@ -7,8 +7,7 @@ public class spawningBoss : MonoBehaviour {
     public GameObject bossLeader;
     public Transform spawn;
 
-    public void SpawnTheBoss()
-    {
+    public void SpawnTheBoss(){
         Instantiate(bossLeader, transform.position, transform.rotation);
-    } 
+    }
 }

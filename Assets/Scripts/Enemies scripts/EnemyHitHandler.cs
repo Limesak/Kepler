@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class EnemyHitHandler : MonoBehaviour
 {
-    [Header("Hit handling")]
+    [Header("Health and score")]
     public int health;
+    public int scoreToGive;
     [SerializeField] private GameObject particles;
+
+    [Header("Attributes")]
+    [SerializeField] private bool progessKillCount;
     [SerializeField] private bool canDrop;
     [SerializeField] private bool dropsPoints;
-    [SerializeField] private bool isBoss;
     [SerializeField] private GameObject itemDrop;
-    public int scoreToGive;
+    [SerializeField] private bool isBoss;
+
+    Main main;
+
+    private void Awake(){
+        main = Main.Instance;
+    }
 
     public void checkDeath(int startingHealth, float randomScale){
         if(health <= 0){
@@ -24,6 +33,8 @@ public class EnemyHitHandler : MonoBehaviour
     }
 
     public void KillThis(int startingHealth, float randomScale){
+        main.currentScore += scoreToGive;
+
         if(canDrop && !dropsPoints){
             int i = Random.Range(1, 4);
             if(i == 2){
@@ -33,7 +44,17 @@ public class EnemyHitHandler : MonoBehaviour
         else if(canDrop && dropsPoints){
             DropThis(startingHealth, randomScale);
         }
+
+        if(progessKillCount){
+            main.AddOneKill();
+        }
+
+        if(isBoss){
+            main.UpdatePhase();
+        }
+
         Instantiate(particles, transform.position, Quaternion.identity);
+
         Destroy(gameObject);
     }
 

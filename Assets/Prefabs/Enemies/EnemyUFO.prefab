@@ -47,11 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 2
-  particles: {fileID: 1205300976700008, guid: 8f7360efd4de1764cb046972e00076dc, type: 3}
-  canDrop: 1
-  isBoss: 0
-  itemDrop: {fileID: 1585867772972240, guid: 93e569b752c079b448f7f7c1ac9269f7, type: 3}
   scoreToGive: 5
+  particles: {fileID: 1205300976700008, guid: 8f7360efd4de1764cb046972e00076dc, type: 3}
+  progessKillCount: 1
+  canDrop: 1
+  dropsPoints: 0
+  itemDrop: {fileID: 1585867772972240, guid: 93e569b752c079b448f7f7c1ac9269f7, type: 3}
+  isBoss: 0
   speed: 5
 --- !u!54 &2159140784444471431
 Rigidbody:
