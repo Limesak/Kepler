@@ -15,6 +15,7 @@ public class EnemyHitHandler : MonoBehaviour
     [SerializeField] private bool dropsPoints;
     [SerializeField] private GameObject itemDrop;
     [SerializeField] private bool isBoss;
+    public AudioClip soundWhenTouched;
 
     Main main;
 

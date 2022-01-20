@@ -54,6 +54,7 @@ MonoBehaviour:
   dropsPoints: 0
   itemDrop: {fileID: 1585867772972240, guid: 93e569b752c079b448f7f7c1ac9269f7, type: 3}
   isBoss: 0
+  soundWhenTouched: {fileID: 0}
   speed: 5
 --- !u!54 &2159140784444471431
 Rigidbody:
@@ -70,7 +71,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1 &7849710987429617469
 GameObject:
   m_ObjectHideFlags: 0

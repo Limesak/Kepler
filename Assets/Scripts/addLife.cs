@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class addLife : MonoBehaviour {
 
-    public Rigidbody2D rb;
+    public int healthRegained;
+    public Rigidbody rb;
     private float lifeSpan = 5f;
 
     void Update()
@@ -16,10 +17,11 @@ public class addLife : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.gameObject.layer.Equals(6))
         {
+            other.transform.parent.GetComponent<Player>().GainHealth(healthRegained);
             Destroy(gameObject);
         }
     }

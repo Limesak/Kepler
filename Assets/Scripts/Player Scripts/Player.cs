@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -23,13 +22,16 @@ public class Player : MonoBehaviour
     public Collider playerCollider;
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public GameObject doubleShotPrefab;
 
     [Header("Shots properties")]
+    [SerializeField] private bool hasDoubleShot;
     public float reloadTime;
     private float reloadTimer;
 
     [Header("Player health properties")]
     public int life;
+    public int maxLife;
 
     private Vector2 movementMagnitude;
     private Main main;
@@ -110,10 +112,20 @@ public class Player : MonoBehaviour
 
     private void PerformShooting(){
         if(isShooting && reloadTimer <= 0){
-            Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-            reloadTimer = reloadTime;
+            if(!hasDoubleShot){
+                Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+                OnFireShot?.Invoke();
+                reloadTimer = reloadTime;
+            }
+            else{
+                Instantiate(doubleShotPrefab, firePoint.position, Quaternion.identity);
+                OnFireShot?.Invoke();
+                reloadTimer = reloadTime;
+            }
         }
     }
+
+    public static event Action OnFireShot;
     //////////////////////////////////////////
 
     public void TakeDamage(int receivedDamage){
@@ -121,7 +133,9 @@ public class Player : MonoBehaviour
     }
 
     public void GainHealth(int receivedHealth){
-        life += receivedHealth;
+        if((life + receivedHealth) <= maxLife){
+            life += receivedHealth;
+        }
     }
 
     private void PlayerDeath(){

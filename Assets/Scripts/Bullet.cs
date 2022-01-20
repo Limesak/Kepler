@@ -1,42 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
 public class Bullet : MonoBehaviour
 {
     public float bulletSpeed = 2f;
     public int damage;
     private Vector2 travelDirection;
+    Vector2 previousPos;
+    Vector2 newPos;
+
+    public static event Action OnPlayerFireHit;
 
     private void Start()
     {
         travelDirection = transform.up;
     }
 
-    private void Update()
-    {
-        Vector2 previousPos = transform.localPosition;
-        Vector2 direction = transform.localPosition;
-        direction += travelDirection * bulletSpeed * Time.deltaTime;
-        transform.localPosition = direction;
-        Vector2 newPos = transform.localPosition;
-
-        DetectCollision(previousPos, newPos);
-
+    private void Update(){         
         // Détruit l'objet si sort de l'écran
         if (transform.position.y >= 11)
         {
             Destroy(gameObject);
         }
+
+        DetectCollision();
     }
 
-    // Collision pour les petits objets rapides
-    private void DetectCollision(Vector2 previousPos, Vector2 newPos){
+    private void FixedUpdate(){
+        previousPos = transform.localPosition;
+        Vector2 direction = transform.localPosition;
+        direction += travelDirection * bulletSpeed * Time.deltaTime;
+        transform.localPosition = direction;
+        newPos = transform.localPosition;
+    }
+
+    private void DetectCollision(){
         int mask = 1 << 3;
 
         RaycastHit[] hits = Physics.RaycastAll(new Ray(previousPos, (newPos - previousPos).normalized), (newPos - previousPos).magnitude, mask);
         for(int i = 0; i < hits.Length; i++){
             RaycastHit hit = hits[i];
+            OnPlayerFireHit?.Invoke();
             DistributeDamage(hit.transform.gameObject);
         }
     }

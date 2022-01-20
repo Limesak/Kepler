@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 375805056329616369}
   - component: {fileID: 375805056329616375}
   - component: {fileID: 375805056329616368}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 375805056329616370}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0.7071068, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children: []
   m_Father: {fileID: 375805057632171581}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: -90}
 --- !u!23 &375805056329616375
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 375805057340683606}
   - component: {fileID: 375805057340683607}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 375805057412208550}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,13 +167,13 @@ GameObject:
   - component: {fileID: 375805057632171582}
   - component: {fileID: 1805860926}
   - component: {fileID: 1805860928}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &375805057632171581
 Transform:
   m_ObjectHideFlags: 0
@@ -216,8 +216,12 @@ MonoBehaviour:
   firePoint: {fileID: 375805057412208550}
   bulletPrefab: {fileID: 1911430713005540, guid: 9b152afc137703c4c905def04faa4a9e,
     type: 3}
+  doubleShotPrefab: {fileID: 1911430713005540, guid: 32655b0bd07628b46a64c38851ebb3c0,
+    type: 3}
+  hasDoubleShot: 0
   reloadTime: 0.1
   life: 3
+  maxLife: 5
 --- !u!114 &1805860926
 MonoBehaviour:
   m_ObjectHideFlags: 0

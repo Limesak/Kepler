@@ -5,17 +5,22 @@ using UnityEngine;
 public class Collectible : MonoBehaviour {
 
     public float movementSpeed = 4f;
-    public Rigidbody2D rb;
+    public int scoreToGive;
+    public Rigidbody rb;
+    Main main;
 
-    void Start()
-    {
+    void Awake(){
+        main = Main.Instance;
+    }
+
+    void Start(){
         rb.velocity = transform.up * -movementSpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
-        {
+        if(other.gameObject.layer.Equals(6)){
+            main.currentScore += scoreToGive;
             Destroy(gameObject);
         }
     }

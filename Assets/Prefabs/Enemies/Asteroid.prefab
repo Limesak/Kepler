@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4869504268928506}
   - component: {fileID: 114470106275564480}
-  - component: {fileID: 6696491890312265852}
+  - component: {fileID: 5393685926528491984}
   m_Layer: 3
   m_Name: Asteroid
   m_TagString: Asteroid
@@ -47,11 +47,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  scoreToGive: 0
   particles: {fileID: 1205300976700008, guid: 8f7360efd4de1764cb046972e00076dc, type: 3}
+  progessKillCount: 0
   canDrop: 0
+  dropsPoints: 0
   itemDrop: {fileID: 0}
+  isBoss: 0
+  soundWhenTouched: {fileID: 0}
   movementSpeed: 2
---- !u!54 &6696491890312265852
+--- !u!54 &5393685926528491984
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,7 +71,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1 &1332427974015802
 GameObject:
   m_ObjectHideFlags: 0

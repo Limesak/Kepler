@@ -56,7 +56,9 @@ public class Main : SingletonPersistent<Main>
         currentLevel = 1;
 	}
 
-	void Update(){
+	void Update(){        
+        UpdateScoreHUD();
+
         if(killCount == 25){
             UpdatePhase();
             ResetKills();
@@ -94,7 +96,6 @@ public class Main : SingletonPersistent<Main>
         killCount++;
         enemiesLeft = 25 - killCount;
         UpdateKillText();
-        UpdateScoreHUD();
     }
 
     public void UpdatePhase(){
