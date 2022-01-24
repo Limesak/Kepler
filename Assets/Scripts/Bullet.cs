@@ -37,9 +37,9 @@ public class Bullet : MonoBehaviour
     private void DetectCollision(){
         int mask = 1 << 3;
 
-        RaycastHit[] hits = Physics.RaycastAll(new Ray(previousPos, (newPos - previousPos).normalized), (newPos - previousPos).magnitude, mask);
-        for(int i = 0; i < hits.Length; i++){
-            RaycastHit hit = hits[i];
+        RaycastHit hit;
+
+        if(Physics.Linecast(previousPos, newPos, out hit, mask)){
             OnPlayerFireHit?.Invoke();
             DistributeDamage(hit.transform.gameObject);
         }

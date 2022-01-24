@@ -143,4 +143,8 @@ public class Player : MonoBehaviour
         main.UpdateEndScreenText();
         Destroy(gameObject);
     }
+
+    public void UnlockDoubleShot(){
+        hasDoubleShot = true;
+    }
 }

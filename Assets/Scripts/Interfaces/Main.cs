@@ -6,7 +6,7 @@ using TMPro;
 
 public class Main : SingletonPersistent<Main>
 {
-    [SerializeField] private GameObject player;
+    public GameObject player;
 
 	[Header("UI references")]
 	[SerializeField] private TextMeshPro lifeText;
@@ -26,6 +26,7 @@ public class Main : SingletonPersistent<Main>
 
     PauseAction pauseAction;
     SpawnManager spawnManager;
+    ShopManager shopManager;
 
     public override void Awake(){
         base.Awake();
@@ -45,6 +46,7 @@ public class Main : SingletonPersistent<Main>
 		startScreen.SetActive(true);
         stateOfPlay = "Start_Screen";
         spawnManager = SpawnManager.Instance;
+        shopManager = ShopManager.Instance;
 	}
 
 	// Lance la partie en appuyant sur start sur le premier écran
@@ -74,7 +76,9 @@ public class Main : SingletonPersistent<Main>
                 PauseGame();
                 break;
             case "Paused_Game":
-                ResumeGame();
+                if(!shopManager.shopIsOpen){
+                    ResumeGame();
+                }
                 break;
             case "Game_Over":
                 RestartGame();
@@ -103,11 +107,15 @@ public class Main : SingletonPersistent<Main>
             phaseOfBattle = "Squad_Phase";
         }
         else if (phaseOfBattle.Equals("Squad_Phase")){
-            phaseOfBattle = "Field_Phase";
-            spawnManager.bossSpawned = false;
-            enemiesLeft = 25;
-            currentLevel++;
+            shopManager.OpenShop();
         }
+    }
+
+    public void NextLevel(){
+        phaseOfBattle = "Field_Phase";
+        spawnManager.bossSpawned = false;
+        enemiesLeft = 25;
+        currentLevel++;
     }
 
     public void ResetKills(){
