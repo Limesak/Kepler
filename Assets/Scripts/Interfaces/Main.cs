@@ -91,7 +91,7 @@ public class Main : SingletonPersistent<Main>
         stateOfPlay = "Paused_Game";
     }
 
-    private void ResumeGame(){
+    public void ResumeGame(){
         Time.timeScale = 1;
         stateOfPlay = "Active_Game";
     }

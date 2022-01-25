@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbf267dfbfa3e704d88ca1c3bd37921f, type: 3}
-  m_Name: DoubleShot - SO
+  m_Script: {fileID: 11500000, guid: 176f9896fdce951468bb8cbcfdd6681d, type: 3}
+  m_Name: Dash - SO
   m_EditorClassIdentifier: 
-  objectName: Double Shot
-  costInGold: 200
+  objectName: Dash
+  costInGold: 150
   itemImage: {fileID: 0}

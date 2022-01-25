@@ -1,21 +1,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
     [Header("Player's movements stats")]
     public float baseVerticalSpeed = 5f;
     public float baseHorizontalSpeed = 7f;
-    public float dashValue;
-    public float dashTime;
+    public float dashSpeed;
+    public float dashDuration;
+    private float dashTimer;
     public float dashDelay;
     public float rotationMagnitude;
     public float rotationSpeed;
 
     [Header("Playerstate checks")]
     public bool canMove;
-    private bool dashReloading, isDashing, isShooting;
+    [SerializeField] private bool hasDash;
+    private bool dashReloading, isDashing, isShooting, canTakeDamage;
 
     [Header("Objects references")]
     public GameObject shipVisual;
@@ -34,6 +37,7 @@ public class Player : MonoBehaviour
     public int maxLife;
 
     private Vector2 movementMagnitude;
+    private Vector2 directionToDash;
     private Main main;
 
     void Start()
@@ -43,23 +47,29 @@ public class Player : MonoBehaviour
     }
 
     private void Update(){
+        if(!main.stateOfPlay.Equals("Paused_Game")){
+            // timer for firerate
+            // and dash system cooldown
+            if(reloadTimer > 0f){
+                reloadTimer -= Time.deltaTime;
+            }
+            if(dashTimer > 0f){
+                dashTimer -= Time.deltaTime;
+            }        
 
-        // on déroule les timers pour la fréquence de tir
-        // et la réutilisation du dash
-        if(reloadTimer > 0f){
-            reloadTimer -= Time.deltaTime;
-        }
-        if(dashTime > 0f){
-            dashTime -= Time.deltaTime;
-        }        
+            CalculateMovement();
+            PerformShooting();
 
-        CalculateMovement();
-        PerformShooting();
+            main.UpdateLifeHUD(life);
 
-        main.UpdateLifeHUD(life);
+            if (life <= 0){
+                PlayerDeath();
+            }
 
-        if (life <= 0){
-            PlayerDeath();
+            if(isDashing){
+                transform.localPosition += (Vector3)directionToDash * Time.deltaTime;
+                canTakeDamage = false;
+            }
         }
     }
 
@@ -83,6 +93,7 @@ public class Player : MonoBehaviour
         UpdateRotation();
     }
 
+    // Limits player to the boundaries of the screen
     private void ClampPosition()
     {
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
@@ -91,12 +102,46 @@ public class Player : MonoBehaviour
         transform.position = Camera.main.ViewportToWorldPoint(pos);
     }
 
+    // Rotates the player's ship when moving
     private void UpdateRotation()
     {
         Vector3 newRotation = new Vector3(0f, -(movementMagnitude.x * rotationMagnitude) + 180f, -90f);
         Quaternion newQuaternion = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
         shipVisual.transform.rotation = Quaternion.RotateTowards(shipVisual.transform.rotation, newQuaternion, rotationSpeed);
     }
+
+    public void DashInput(InputAction.CallbackContext button){
+        if(button.started && dashTimer <= 0 && hasDash){
+            dashTimer = dashDelay;
+            PerformDash();
+        }
+    }
+
+    private void PerformDash(){
+        if(movementMagnitude != Vector2.zero){
+            directionToDash = movementMagnitude * dashSpeed;
+        }
+        else{
+            directionToDash = (Vector2)transform.up * dashSpeed;
+        }
+
+        StartCoroutine(DashCoroutine());
+
+        IEnumerator DashCoroutine(){
+            canMove = false;
+            isDashing = true;
+            yield return new WaitForSeconds(dashDuration);
+            StartCoroutine(EndDash());
+        }
+
+        IEnumerator EndDash(){
+            yield return new WaitForSeconds(0.03f);
+            isDashing = false;
+            canMove = true;
+            canTakeDamage = true;
+        }
+    }
+
     ////////////////////////////////////
 
     //////////Fire main weapon section////////
@@ -129,7 +174,9 @@ public class Player : MonoBehaviour
     //////////////////////////////////////////
 
     public void TakeDamage(int receivedDamage){
-        life -= receivedDamage;
+        if(canTakeDamage){
+            life -= receivedDamage;
+        }
     }
 
     public void GainHealth(int receivedHealth){
@@ -146,5 +193,9 @@ public class Player : MonoBehaviour
 
     public void UnlockDoubleShot(){
         hasDoubleShot = true;
+    }
+
+    public void UnlockDash(){
+        hasDash = true;
     }
 }

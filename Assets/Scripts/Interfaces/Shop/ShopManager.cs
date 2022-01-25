@@ -20,7 +20,7 @@ public class ShopManager : SingletonPersistent<ShopManager>
     }
 
     public void OpenShop(){
-        main.stateOfPlay = "Paused_Game";
+        main.PauseGame();
         UpdateTheSlots();
         shopCanvas.SetActive(true);
         shopIsOpen = true;
@@ -30,7 +30,7 @@ public class ShopManager : SingletonPersistent<ShopManager>
         shopCanvas.SetActive(false);
         shopIsOpen = false;
         main.NextLevel();
-        main.stateOfPlay = "Active_Game";
+        main.ResumeGame();
     }
 
     public void UpdateTheSlots(){
