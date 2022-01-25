@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectible : MonoBehaviour {
+public class GoldPickUp : MonoBehaviour {
 
     public float movementSpeed = 4f;
     public int scoreToGive;
@@ -11,6 +11,10 @@ public class Collectible : MonoBehaviour {
 
     void Awake(){
         main = Main.Instance;
+    }
+
+    void Update(){
+        if(transform.position.y < -13) RemoveFromGame();
     }
 
     void Start(){
@@ -23,5 +27,9 @@ public class Collectible : MonoBehaviour {
             main.currentScore += scoreToGive;
             Destroy(gameObject);
         }
+    }
+
+    void RemoveFromGame(){
+        Destroy(gameObject);
     }
 }

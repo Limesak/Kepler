@@ -83,7 +83,8 @@ MonoBehaviour:
   progessKillCount: 0
   canDrop: 0
   dropsPoints: 0
-  itemDrop: {fileID: 0}
+  goldPoints: {fileID: 0}
+  itemDrop: []
   isBoss: 1
   soundWhenTouched: {fileID: 0}
   player: {fileID: 0}

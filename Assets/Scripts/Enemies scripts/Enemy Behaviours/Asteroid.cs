@@ -12,9 +12,17 @@ public class Asteroid : EnemyHitHandler
     private float randomScale;
     private int damage = 1;
 
+    [Header("Visual touches")]
+    [SerializeField] private GameObject model;
+    [SerializeField] private float rotationSpeed;
+    Quaternion currentRotation;
+
     void Start()
     {
         randomScale = Random.Range(3f, 9f);
+        Vector3 baseRotation = new Vector3(Random.Range(0, 90), Random.Range(0, 90), Random.Range(0, 90));        
+        currentRotation.eulerAngles = baseRotation;
+        model.transform.rotation = currentRotation;
 
         if (randomScale <= 4f)
         {
@@ -35,8 +43,7 @@ public class Asteroid : EnemyHitHandler
         travelDirection = -transform.up;
     }
 
-    void Update()
-    {
+    void Update(){
         Vector2 previousPos = transform.localPosition;
         Vector2 direction = transform.localPosition;
         direction += travelDirection * movementSpeed * Time.deltaTime;
@@ -44,6 +51,8 @@ public class Asteroid : EnemyHitHandler
         Vector2 newPos = transform.localPosition;
 
         checkDeath(health, randomScale);
+
+        model.transform.Rotate( 0f, 0f, rotationSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other){

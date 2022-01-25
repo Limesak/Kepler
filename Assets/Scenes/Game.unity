@@ -325,6 +325,7 @@ MonoBehaviour:
   killCount: 0
   currentLevel: 0
   currentScore: 0
+  playerHasBombs: 0
 --- !u!4 &236499117
 Transform:
   m_ObjectHideFlags: 0
@@ -3454,6 +3455,9 @@ MonoBehaviour:
   itemsToBuy:
   - {fileID: 11400000, guid: 63698a7319734a24f8daa095c98bbc56, type: 2}
   - {fileID: 11400000, guid: bb923e15ea79b6e4a81afbad893f4e37, type: 2}
+  - {fileID: 11400000, guid: 7848d2eea23ff2d4db0e33b91c6418dd, type: 2}
+  - {fileID: 11400000, guid: d2eec2d186fd2784b99dc4052b81f706, type: 2}
+  - {fileID: 11400000, guid: e8194010d4c86dc4b832303ffd8321fa, type: 2}
   shopIsOpen: 0
 --- !u!1001 &375805056195671555
 PrefabInstance:

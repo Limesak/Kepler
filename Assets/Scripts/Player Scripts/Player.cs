@@ -28,7 +28,9 @@ public class Player : MonoBehaviour
     [Header("Shots properties")]
     public GameObject bulletPrefab;
     public GameObject doubleShotPrefab;
-    private bool hasDoubleShot;
+    public int bombsAmmo;
+    public int maxBombAmmo;
+    private bool hasDoubleShot, hasBombs;
     public float mainReloadTime;
     private float mainReloadTimer;
 
@@ -36,13 +38,13 @@ public class Player : MonoBehaviour
     public int life;
     public int maxLife;
 
-    private Vector2 movementMagnitude;
-    private Vector2 directionToDash;
+    private Vector2 movementMagnitude, directionToDash;
     private Main main;
 
     void Start(){
         main = Main.Instance;
         canMove = true;
+        canTakeDamage = true;
     }
 
     private void Update(){
@@ -196,5 +198,19 @@ public class Player : MonoBehaviour
 
     public void UnlockDash(){
         hasDash = true;
+    }
+
+    public void UnlockBombs(){
+        hasBombs = true;
+        main.playerHasBombs = true;
+    }
+
+    public void PickUpBombs(int newAmmo){
+        if(bombsAmmo < maxBombAmmo){
+            bombsAmmo += newAmmo;
+            if(bombsAmmo > maxBombAmmo){
+                bombsAmmo = maxBombAmmo;
+            }
+        }
     }
 }

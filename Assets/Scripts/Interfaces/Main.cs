@@ -23,6 +23,7 @@ public class Main : SingletonPersistent<Main>
     [HideInInspector] public int killCount = 0;
     public int currentLevel;
     public int currentScore;
+    [HideInInspector] public bool playerHasBombs;
 
     PauseAction pauseAction;
     SpawnManager spawnManager;

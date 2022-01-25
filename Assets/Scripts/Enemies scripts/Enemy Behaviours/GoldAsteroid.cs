@@ -13,8 +13,16 @@ public class GoldAsteroid : EnemyHitHandler
     private int damage = 1;
     private int startingHealth;
 
+    [Header("Visual touches")]
+    [SerializeField] private GameObject model;
+    [SerializeField] private float rotationSpeed;
+    Quaternion currentRotation;
+
     void Start () {
         randomScale = Random.Range(0.8f, 3f);
+        Vector3 baseRotation = new Vector3(Random.Range(0, 90), Random.Range(0, 90), Random.Range(0, 90));        
+        currentRotation.eulerAngles = baseRotation;
+        model.transform.rotation = currentRotation;
 
         if (randomScale <= 1f)
         {
@@ -44,6 +52,8 @@ public class GoldAsteroid : EnemyHitHandler
         Vector2 newPos = transform.localPosition;
 
         checkDeath(startingHealth, randomScale);
+
+        model.transform.Rotate( 0f, 0f, rotationSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other){

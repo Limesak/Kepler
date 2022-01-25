@@ -215,6 +215,8 @@ MonoBehaviour:
     type: 3}
   doubleShotPrefab: {fileID: 1911430713005540, guid: 32655b0bd07628b46a64c38851ebb3c0,
     type: 3}
+  bombsAmmo: 0
+  maxBombAmmo: 3
   mainReloadTime: 0.2
   life: 3
   maxLife: 5

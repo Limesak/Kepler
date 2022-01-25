@@ -13,7 +13,8 @@ public class EnemyHitHandler : MonoBehaviour
     [SerializeField] private bool progessKillCount;
     [SerializeField] private bool canDrop;
     [SerializeField] private bool dropsPoints;
-    [SerializeField] private GameObject itemDrop;
+    [SerializeField] private GameObject goldPoints;
+    [SerializeField] private GameObject[] itemDrop;
     [SerializeField] private bool isBoss;
     public AudioClip soundWhenTouched;
 
@@ -45,11 +46,12 @@ public class EnemyHitHandler : MonoBehaviour
         if(canDrop && !dropsPoints){
             int i = Random.Range(1, 4);
             if(i == 2){
-                DropThis(startingHealth, randomScale);
+                DropPickUp();
             }
         }
-        else if(canDrop && dropsPoints){
-            DropThis(startingHealth, randomScale);
+
+        if(canDrop && dropsPoints){
+            DropPoints(startingHealth, randomScale);
         }
 
         if(progessKillCount){
@@ -65,14 +67,19 @@ public class EnemyHitHandler : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void DropThis(int startingHealth, float randomScale){
-        if(dropsPoints){
-            for(int i = 0; i < (startingHealth * 3); i++){
-                Instantiate(itemDrop, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
-            }
+    public void DropPickUp(){
+        if(main.playerHasBombs){
+            int i = Random.Range(0, itemDrop.Length);
+            Instantiate(itemDrop[i], transform.position, Quaternion.identity);
         }
         else{
-                Instantiate(itemDrop, transform.position, Quaternion.identity);
+            Instantiate(itemDrop[0], transform.position, Quaternion.identity);
+        }
+    }
+
+    public void DropPoints(int startingHealth, float randomScale){
+        for(int i = 0; i < (startingHealth * 3); i++){
+            Instantiate(goldPoints, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
         }
     }
 
