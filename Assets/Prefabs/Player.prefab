@@ -207,11 +207,7 @@ MonoBehaviour:
   baseHorizontalSpeed: 7
   dashSpeed: 30
   dashDuration: 0.1
-  dashDelay: 4
-  rotationMagnitude: 40
-  rotationSpeed: 10
-  canMove: 1
-  hasDash: 0
+  dashCooldown: 4
   shipVisual: {fileID: 375805056329616370}
   playerCollider: {fileID: 375805057340683607}
   firePoint: {fileID: 375805057412208550}
@@ -219,8 +215,7 @@ MonoBehaviour:
     type: 3}
   doubleShotPrefab: {fileID: 1911430713005540, guid: 32655b0bd07628b46a64c38851ebb3c0,
     type: 3}
-  hasDoubleShot: 0
-  reloadTime: 0.2
+  mainReloadTime: 0.2
   life: 3
   maxLife: 5
 --- !u!114 &1805860926

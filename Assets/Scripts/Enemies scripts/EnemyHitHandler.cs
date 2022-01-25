@@ -23,6 +23,12 @@ public class EnemyHitHandler : MonoBehaviour
         main = Main.Instance;
     }
 
+    private void FixedUpdate(){
+        if(transform.position.y < -13){
+            RemoveFromGame();
+        }
+    }
+
     public void checkDeath(int startingHealth, float randomScale){
         if(health <= 0){
             KillThis(startingHealth, randomScale);
@@ -68,5 +74,9 @@ public class EnemyHitHandler : MonoBehaviour
         else{
                 Instantiate(itemDrop, transform.position, Quaternion.identity);
         }
+    }
+
+    private void RemoveFromGame(){
+        Destroy(gameObject);
     }
 }

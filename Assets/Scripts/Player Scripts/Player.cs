@@ -11,26 +11,26 @@ public class Player : MonoBehaviour
     public float dashSpeed;
     public float dashDuration;
     private float dashTimer;
-    public float dashDelay;
-    public float rotationMagnitude;
-    public float rotationSpeed;
+    public float dashCooldown;
+    private float rotationMagnitude = 40;
+    private float rotationSpeed = 10;
 
     [Header("Playerstate checks")]
-    public bool canMove;
-    [SerializeField] private bool hasDash;
-    private bool dashReloading, isDashing, isShooting, canTakeDamage;
+    private bool canMove;
+    private bool hasDash;
+    private bool isDashing, isShooting, canTakeDamage;
 
     [Header("Objects references")]
     public GameObject shipVisual;
     public Collider playerCollider;
     public Transform firePoint;
-    public GameObject bulletPrefab;
-    public GameObject doubleShotPrefab;
 
     [Header("Shots properties")]
-    [SerializeField] private bool hasDoubleShot;
-    public float reloadTime;
-    private float reloadTimer;
+    public GameObject bulletPrefab;
+    public GameObject doubleShotPrefab;
+    private bool hasDoubleShot;
+    public float mainReloadTime;
+    private float mainReloadTimer;
 
     [Header("Player health properties")]
     public int life;
@@ -40,18 +40,17 @@ public class Player : MonoBehaviour
     private Vector2 directionToDash;
     private Main main;
 
-    void Start()
-    {
-        dashReloading = false;
+    void Start(){
         main = Main.Instance;
+        canMove = true;
     }
 
     private void Update(){
         if(!main.stateOfPlay.Equals("Paused_Game")){
             // timer for firerate
             // and dash system cooldown
-            if(reloadTimer > 0f){
-                reloadTimer -= Time.deltaTime;
+            if(mainReloadTimer > 0f){
+                mainReloadTimer -= Time.deltaTime;
             }
             if(dashTimer > 0f){
                 dashTimer -= Time.deltaTime;
@@ -112,7 +111,7 @@ public class Player : MonoBehaviour
 
     public void DashInput(InputAction.CallbackContext button){
         if(button.started && dashTimer <= 0 && hasDash){
-            dashTimer = dashDelay;
+            dashTimer = dashCooldown;
             PerformDash();
         }
     }
@@ -156,16 +155,16 @@ public class Player : MonoBehaviour
     }
 
     private void PerformShooting(){
-        if(isShooting && reloadTimer <= 0){
+        if(isShooting && mainReloadTimer <= 0){
             if(!hasDoubleShot){
                 Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
                 OnFireShot?.Invoke();
-                reloadTimer = reloadTime;
+                mainReloadTimer = mainReloadTime;
             }
             else{
                 Instantiate(doubleShotPrefab, firePoint.position, Quaternion.identity);
                 OnFireShot?.Invoke();
-                reloadTimer = reloadTime;
+                mainReloadTimer = mainReloadTime;
             }
         }
     }

@@ -32,6 +32,12 @@ public class Bullet : MonoBehaviour
         direction += travelDirection * bulletSpeed * Time.deltaTime;
         transform.localPosition = direction;
         newPos = transform.localPosition;
+
+        DetectCollision();
+    }
+
+    private void LateUpdate(){
+        DetectCollision();
     }
 
     private void DetectCollision(){
