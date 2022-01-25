@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
 public class LifePickUp : MonoBehaviour {
 
@@ -16,8 +15,10 @@ public class LifePickUp : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other){
         if (other.gameObject.layer.Equals(6)){
-            other.transform.parent.GetComponent<Player>().GainHealth(healthRegained);
+            OnPickUpHealth(healthRegained);
             Destroy(gameObject);
         }
     }
+
+    public static event Action<int> OnPickUpHealth;
 }

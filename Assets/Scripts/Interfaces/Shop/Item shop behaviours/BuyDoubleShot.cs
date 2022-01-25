@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(menuName = "Shop Item/DoubleShot")]
 public class BuyDoubleShot : ShopObject
 {
     public override void BuyThisItem()
     {
-        Main.Instance.player.GetComponent<Player>().UnlockDoubleShot();
+        OnBuyingDoubleShot?.Invoke();
     }
+
+    public static event Action OnBuyingDoubleShot;
 }

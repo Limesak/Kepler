@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BombPickUp : MonoBehaviour
 {
@@ -14,8 +13,10 @@ public class BombPickUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other){
         if(other.gameObject.layer.Equals(6)){
-            other.transform.parent.GetComponent<Player>().PickUpBombs(bombPickedUp);
+            OnBombPickUp(bombPickedUp);
             Destroy(gameObject);
         }
     }
+
+    public static event Action<int> OnBombPickUp;
 }

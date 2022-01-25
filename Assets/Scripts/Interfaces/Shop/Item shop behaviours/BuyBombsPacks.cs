@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(menuName = ("Shop Item/Bombs"))]
 public class BuyBombsPacks : ShopObject
 {
-    public int thisBombsPack;
+    public int thisBombsPack { get; protected set; }
 
     public override void BuyThisItem()
     {
-        Main.Instance.player.GetComponent<Player>().PickUpBombs(thisBombsPack);
+        OnBuyingBombsPack(thisBombsPack);
     }
+
+    public static event Action<int> OnBuyingBombsPack;
 }

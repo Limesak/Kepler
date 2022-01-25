@@ -47,6 +47,24 @@ public class Player : MonoBehaviour
         canTakeDamage = true;
     }
 
+    private void OnEnable(){
+        BuyDoubleShot.OnBuyingDoubleShot += UnlockDoubleShot;
+        BuyBombLauncher.OnBuyingBombLauncher += UnlockBombs;
+        BuyDash.OnBuyingDash += UnlockDash;
+        BuyBombsPacks.OnBuyingBombsPack += PickUpBombs;
+        BombPickUp.OnBombPickUp += PickUpBombs;
+        LifePickUp.OnPickUpHealth += GainHealth;
+    }
+
+    private void OnDisable(){
+        BuyDoubleShot.OnBuyingDoubleShot -= UnlockDoubleShot;
+        BuyBombLauncher.OnBuyingBombLauncher -= UnlockBombs;
+        BuyDash.OnBuyingDash -= UnlockDash;
+        BuyBombsPacks.OnBuyingBombsPack -= PickUpBombs;
+        BombPickUp.OnBombPickUp -= PickUpBombs;
+        LifePickUp.OnPickUpHealth -= GainHealth;
+    }
+
     private void Update(){
         if(!main.stateOfPlay.Equals("Paused_Game")){
             // timer for firerate
