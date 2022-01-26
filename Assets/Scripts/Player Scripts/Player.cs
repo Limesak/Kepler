@@ -28,11 +28,14 @@ public class Player : MonoBehaviour
     [Header("Shots properties")]
     public GameObject bulletPrefab;
     public GameObject doubleShotPrefab;
+    public GameObject bombPrefab;
     public int bombsAmmo;
     public int maxBombAmmo;
     [HideInInspector] public bool hasDoubleShot, hasBombs;
     public float mainReloadTime;
+    public float bombReloadTime;
     private float mainReloadTimer;
+    private float bombReloadTimer;
 
     [Header("Player health properties")]
     public int life;
@@ -56,7 +59,10 @@ public class Player : MonoBehaviour
             }
             if(dashTimer > 0f){
                 dashTimer -= Time.deltaTime;
-            }        
+            }
+            if(bombReloadTimer > 0f){
+                bombReloadTimer -= Time.deltaTime;
+            }       
 
             CalculateMovement();
             PerformShooting();
@@ -169,6 +175,21 @@ public class Player : MonoBehaviour
 
     public static event Action OnFireShot;
     //////////////////////////////////////////
+
+    public void BombInput(InputAction.CallbackContext button){
+        if(button.started && bombsAmmo > 0 && hasBombs){
+            bombReloadTimer = bombReloadTime;
+            LaunchBomb();
+        }
+    }
+
+    private void LaunchBomb(){
+        Instantiate(bombPrefab, firePoint.position, Quaternion.identity);
+        bombsAmmo--;
+        OnBombLaunched?.Invoke();
+    }
+
+    public static event Action OnBombLaunched;
 
     public void TakeDamage(int receivedDamage){
         if(canTakeDamage){

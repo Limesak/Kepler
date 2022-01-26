@@ -208,6 +208,7 @@ MonoBehaviour:
   dashSpeed: 30
   dashDuration: 0.1
   dashCooldown: 4
+  hasDash: 0
   shipVisual: {fileID: 375805056329616370}
   playerCollider: {fileID: 375805057340683607}
   firePoint: {fileID: 375805057412208550}
@@ -215,9 +216,14 @@ MonoBehaviour:
     type: 3}
   doubleShotPrefab: {fileID: 1911430713005540, guid: 32655b0bd07628b46a64c38851ebb3c0,
     type: 3}
+  bombPrefab: {fileID: 3442735834836299216, guid: c4e0c3de15079874c9ccfba2d5306af9,
+    type: 3}
   bombsAmmo: 0
   maxBombAmmo: 3
+  hasDoubleShot: 0
+  hasBombs: 0
   mainReloadTime: 0.2
+  bombReloadTime: 0
   life: 3
   maxLife: 5
 --- !u!114 &1805860926
@@ -294,6 +300,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8967de2f-bda7-4d29-9d8d-76c3f8eec51b
     m_ActionName: PlayerShip/Dash[/XInputControllerWindows/buttonEast,/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 375805057632171582}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: BombInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 44d0434f-0fdf-4a50-8818-e436f85bdccc
+    m_ActionName: PlayerShip/Bomb[/Keyboard/b]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: PlayerShip
