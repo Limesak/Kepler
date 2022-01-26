@@ -61,6 +61,7 @@ public class ShopManager : SingletonPersistent<ShopManager>
 
     private void HandleBombauncherSell(){
         main.player.GetComponent<Player>().hasBombs = true;
+        main.playerHasBombs = true;
     }
 
     private void GainBombs(int bombsRegained){
@@ -78,6 +79,5 @@ public class ShopManager : SingletonPersistent<ShopManager>
 
     private void HandleDoubleShotSell(){
         main.player.GetComponent<Player>().hasDoubleShot = true;
-        main.playerHasBombs = true;
     }
 }

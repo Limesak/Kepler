@@ -11,12 +11,11 @@ public class Bullet : MonoBehaviour
 
     public static event Action OnPlayerFireHit;
 
-    private void Start()
-    {
+    private void Start(){
         travelDirection = transform.up;
     }
 
-    private void Update(){         
+    public void Update(){
         // Détruit l'objet si sort de l'écran
         if (transform.position.y >= 11)
         {
@@ -26,7 +25,7 @@ public class Bullet : MonoBehaviour
         DetectCollision();
     }
 
-    private void FixedUpdate(){
+    public void FixedUpdate(){
         previousPos = transform.localPosition;
         Vector2 direction = transform.localPosition;
         direction += travelDirection * bulletSpeed * Time.deltaTime;
@@ -51,7 +50,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void DistributeDamage(GameObject target){
+    public virtual void DistributeDamage(GameObject target){
         target.GetComponent<EnemyHitHandler>().SendMessage("TakeDamage", damage);
         Destroy(gameObject);
     }
