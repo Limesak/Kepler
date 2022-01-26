@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 414301975033358420}
-  - component: {fileID: 8893864288560813232}
+  - component: {fileID: -585156416889811186}
   - component: {fileID: 7607331315693958299}
   m_Layer: 0
   m_Name: BombDrop
@@ -159,7 +159,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8893864288560813232
+--- !u!114 &-585156416889811186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,10 +168,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7823125559082613278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83f470da6bb654844a164b7e8aea7d17, type: 3}
+  m_Script: {fileID: 11500000, guid: d90737c8f994c6040bcd91cfda0331c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombPickedUp: 1
+  player: {fileID: 0}
+  collectibleName: Bomb drop
+  lifeSpan: 5
+  bombsRegained: 1
 --- !u!54 &7607331315693958299
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,15 +1,21 @@
 using UnityEngine;
-using System;
 
 [CreateAssetMenu(menuName = ("Shop Item/Bombs"))]
 public class BuyBombsPacks : ShopObject
 {
-    public int thisBombsPack { get; protected set; }
+    public int bombsRegained;
 
     public override void BuyThisItem()
     {
-        OnBuyingBombsPack(thisBombsPack);
+        GainBombs();
     }
 
-    public static event Action<int> OnBuyingBombsPack;
+    private void GainBombs(){
+        if(player.bombsAmmo < player.maxBombAmmo){
+            player.bombsAmmo += bombsRegained;
+        }
+        if(player.bombsAmmo > player.maxBombAmmo){
+            player.bombsAmmo = player.maxBombAmmo;
+        }
+    }
 }

@@ -6,8 +6,10 @@ public class BuyDoubleShot : ShopObject
 {
     public override void BuyThisItem()
     {
-        OnBuyingDoubleShot?.Invoke();
+        UnlockDoubleShot();
     }
 
-    public static event Action OnBuyingDoubleShot;
+    private void UnlockDoubleShot(){
+        player.hasDoubleShot = true;
+    }
 }

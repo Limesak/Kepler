@@ -1,13 +1,14 @@
 using UnityEngine;
-using System;
 
 [CreateAssetMenu(menuName = "Shop Item/Bomb launcher")]
 public class BuyBombLauncher : ShopObject
 {
     public override void BuyThisItem()
     {
-        OnBuyingBombLauncher?.Invoke();
+        UnlockBombs();
     }
 
-    public static event Action OnBuyingBombLauncher;
+    private void UnlockBombs(){
+        player.hasBombs = true;
+    }
 }

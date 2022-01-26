@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     [Header("Playerstate checks")]
     private bool canMove;
-    private bool hasDash;
+    [HideInInspector] public bool hasDash;
     private bool isDashing, isShooting, canTakeDamage;
 
     [Header("Objects references")]
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     public GameObject doubleShotPrefab;
     public int bombsAmmo;
     public int maxBombAmmo;
-    private bool hasDoubleShot, hasBombs;
+    [HideInInspector] public bool hasDoubleShot, hasBombs;
     public float mainReloadTime;
     private float mainReloadTimer;
 
@@ -47,24 +47,6 @@ public class Player : MonoBehaviour
         canTakeDamage = true;
     }
 
-    private void OnEnable(){
-        BuyDoubleShot.OnBuyingDoubleShot += UnlockDoubleShot;
-        BuyBombLauncher.OnBuyingBombLauncher += UnlockBombs;
-        BuyDash.OnBuyingDash += UnlockDash;
-        BuyBombsPacks.OnBuyingBombsPack += PickUpBombs;
-        BombPickUp.OnBombPickUp += PickUpBombs;
-        LifePickUp.OnPickUpHealth += GainHealth;
-    }
-
-    private void OnDisable(){
-        BuyDoubleShot.OnBuyingDoubleShot -= UnlockDoubleShot;
-        BuyBombLauncher.OnBuyingBombLauncher -= UnlockBombs;
-        BuyDash.OnBuyingDash -= UnlockDash;
-        BuyBombsPacks.OnBuyingBombsPack -= PickUpBombs;
-        BombPickUp.OnBombPickUp -= PickUpBombs;
-        LifePickUp.OnPickUpHealth -= GainHealth;
-    }
-
     private void Update(){
         if(!main.stateOfPlay.Equals("Paused_Game")){
             // timer for firerate
@@ -79,11 +61,7 @@ public class Player : MonoBehaviour
             CalculateMovement();
             PerformShooting();
 
-            main.UpdateLifeHUD(life);
-
-            if (life <= 0){
-                PlayerDeath();
-            }
+            if (life <= 0) PlayerDeath();
 
             if(isDashing){
                 transform.localPosition += (Vector3)directionToDash * Time.deltaTime;
@@ -196,39 +174,12 @@ public class Player : MonoBehaviour
         if(canTakeDamage){
             life -= receivedDamage;
         }
-    }
-
-    public void GainHealth(int receivedHealth){
-        if((life + receivedHealth) <= maxLife){
-            life += receivedHealth;
-        }
+        main.UpdateLifeHUD(life);
     }
 
     private void PlayerDeath(){
         main.EndGame();
         main.UpdateEndScreenText();
         Destroy(gameObject);
-    }
-
-    public void UnlockDoubleShot(){
-        hasDoubleShot = true;
-    }
-
-    public void UnlockDash(){
-        hasDash = true;
-    }
-
-    public void UnlockBombs(){
-        hasBombs = true;
-        main.playerHasBombs = true;
-    }
-
-    public void PickUpBombs(int newAmmo){
-        if(bombsAmmo < maxBombAmmo){
-            bombsAmmo += newAmmo;
-            if(bombsAmmo > maxBombAmmo){
-                bombsAmmo = maxBombAmmo;
-            }
-        }
     }
 }

@@ -6,8 +6,10 @@ public class BuyDash : ShopObject
 {
     public override void BuyThisItem()
     {
-        OnBuyingDash?.Invoke();
+        UnlockDash();
     }
 
-    public static event Action OnBuyingDash;
+    private void UnlockDash(){
+        player.hasDash = true;
+    }
 }
