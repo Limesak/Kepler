@@ -4,12 +4,9 @@ using System;
 [CreateAssetMenu(menuName = "Shop Item/Dash")]
 public class BuyDash : ShopObject
 {
-    public override void BuyThisItem()
-    {
-        UnlockDash();
+    public override void BuyThisItem(){
+        OnUnlockDash?.Invoke();
     }
 
-    private void UnlockDash(){
-        player.hasDash = true;
-    }
+    public static event Action OnUnlockDash;
 }

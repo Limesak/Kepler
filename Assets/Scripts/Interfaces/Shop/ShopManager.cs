@@ -19,6 +19,20 @@ public class ShopManager : SingletonPersistent<ShopManager>
         main = Main.Instance;
     }
 
+    void OnEnable(){
+        BuyBombLauncher.OnUnlockBombs += HandleBombauncherSell;
+        BuyBombsPacks.OnBombsBought += GainBombs;
+        BuyDash.OnUnlockDash += HandleDashSell;
+        BuyDoubleShot.OnUnlockDoubleShot += HandleDoubleShotSell;
+    }
+
+    void OnDisable(){
+        BuyBombLauncher.OnUnlockBombs -= HandleBombauncherSell;
+        BuyBombsPacks.OnBombsBought -= GainBombs;
+        BuyDash.OnUnlockDash -= HandleDashSell;
+        BuyDoubleShot.OnUnlockDoubleShot -= HandleDoubleShotSell;
+    }
+
     public void OpenShop(){
         main.PauseGame();
         UpdateTheSlots();
@@ -43,5 +57,27 @@ public class ShopManager : SingletonPersistent<ShopManager>
             itemSlots[i].GetComponent<ShopTemplate>().costTxt.text = itemSlots[i].GetComponent<ShopTemplate>().cost.ToString();
             itemSlots[i].GetComponent<ShopTemplate>().shopObject = newItem;
         }
+    }
+
+    private void HandleBombauncherSell(){
+        main.player.GetComponent<Player>().hasBombs = true;
+    }
+
+    private void GainBombs(int bombsRegained){
+        if(main.player.GetComponent<Player>().bombsAmmo < main.player.GetComponent<Player>().maxBombAmmo){
+            main.player.GetComponent<Player>().bombsAmmo += bombsRegained;
+        }
+        if(main.player.GetComponent<Player>().bombsAmmo > main.player.GetComponent<Player>().maxBombAmmo){
+            main.player.GetComponent<Player>().bombsAmmo = main.player.GetComponent<Player>().maxBombAmmo;
+        }
+    }
+
+    private void HandleDashSell(){
+        main.player.GetComponent<Player>().hasDash = true;
+    }
+
+    private void HandleDoubleShotSell(){
+        main.player.GetComponent<Player>().hasDoubleShot = true;
+        main.playerHasBombs = true;
     }
 }

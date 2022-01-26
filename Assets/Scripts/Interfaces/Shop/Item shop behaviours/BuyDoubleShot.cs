@@ -4,12 +4,9 @@ using System;
 [CreateAssetMenu(menuName = "Shop Item/DoubleShot")]
 public class BuyDoubleShot : ShopObject
 {
-    public override void BuyThisItem()
-    {
-        UnlockDoubleShot();
+    public override void BuyThisItem(){
+        OnUnlockDoubleShot?.Invoke();
     }
 
-    private void UnlockDoubleShot(){
-        player.hasDoubleShot = true;
-    }
+    public static event Action OnUnlockDoubleShot;
 }
