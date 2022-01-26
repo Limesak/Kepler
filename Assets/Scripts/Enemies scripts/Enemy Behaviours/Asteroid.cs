@@ -14,11 +14,14 @@ public class Asteroid : EnemyHitHandler
 
     [Header("Visual touches")]
     [SerializeField] private GameObject model;
+    [SerializeField] private Mesh[] possibleMeshes;
     [SerializeField] private float rotationSpeed;
     Quaternion currentRotation;
 
     void Start()
     {
+        model.GetComponent<MeshFilter>().mesh = possibleMeshes[(Random.Range(0, possibleMeshes.Length))];
+
         randomScale = Random.Range(3f, 9f);
         Vector3 baseRotation = new Vector3(Random.Range(0, 90), Random.Range(0, 90), Random.Range(0, 90));        
         currentRotation.eulerAngles = baseRotation;

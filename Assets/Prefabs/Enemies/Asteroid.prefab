@@ -58,6 +58,9 @@ MonoBehaviour:
   soundWhenTouched: {fileID: 0}
   movementSpeed: 2
   model: {fileID: 1332427974015802}
+  possibleMeshes:
+  - {fileID: -5495902117074765545, guid: 1080a6e2380d4274cbbe92c6a05a37ff, type: 3}
+  - {fileID: -5495902117074765545, guid: 1411a7765b3bf424b96d568a3edeaa91, type: 3}
   rotationSpeed: 30
 --- !u!54 &5393685926528491984
 Rigidbody:
