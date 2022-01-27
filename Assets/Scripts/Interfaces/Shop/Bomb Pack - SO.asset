@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bomb Pack - SO
   m_EditorClassIdentifier: 
   objectName: Bomb pack
-  costInGold: 200
+  costInGold: 250
   itemImage: {fileID: 0}
   needsBombLauncher: 1
   buyOneAtATime: 0
