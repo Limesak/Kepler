@@ -239,6 +239,10 @@ namespace AsteroidBelt.Player_Scripts
             this.gameObject.SetActive(false);
             transform.position = startPos;
             life = 3;
+            hasBombs = false;
+            hasDoubleShot = false;
+            hasDash = false;
+            main.playerHasBombs = false;
         }
     }
 }
