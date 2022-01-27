@@ -1,5 +1,5 @@
 ﻿using System;
-using AsteroidBelt.Enemies_scripts;
+//using AsteroidBelt.Enemies_scripts;
 using UnityEngine;
 
 namespace AsteroidBelt.Player_Scripts.Weapons
@@ -54,7 +54,7 @@ namespace AsteroidBelt.Player_Scripts.Weapons
         }
 
         public virtual void DistributeDamage(GameObject target){
-            target.GetComponent<EnemyHitHandler>().SendMessage("TakeDamage", damage);
+            target.GetComponent<AsteroidBelt.Enemies_scripts.EnemyHitHandler>().TakeDamage(damage);
             Destroy(gameObject);
         }
     }

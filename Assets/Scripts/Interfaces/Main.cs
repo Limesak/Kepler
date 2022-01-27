@@ -36,7 +36,9 @@ namespace AsteroidBelt.Interfaces
         }
 
         private void OnEnable(){
-            pauseAction.Enable();
+            if(_instance == this){
+                pauseAction.Enable();
+            }
         }
 
         private void OnDisable(){
