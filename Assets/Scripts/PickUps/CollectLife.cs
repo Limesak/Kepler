@@ -1,20 +1,24 @@
-using UnityEngine;
+using AsteroidBelt.Interfaces;
 
-namespace AsteroidBelt
+namespace AsteroidBelt.PickUps
 {
     public class CollectLife : CollectMe
     {
         public int healthRegained;
-        
-        public override void CollectThis(){
+
+        public override void CollectThis()
+        {
             GainHealth();
         }
 
-        private void GainHealth(){
-            if((player.life + healthRegained) <= player.maxLife){
+        private void GainHealth()
+        {
+            if ((player.life + healthRegained) <= player.maxLife)
+            {
                 player.life += healthRegained;
             }
-            else{
+            else
+            {
                 player.life = player.maxLife;
             }
             Main.Instance.UpdateLifeHUD(player.life);

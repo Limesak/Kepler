@@ -1,89 +1,91 @@
-using System.Collections;
-using System.Collections.Generic;
+using AsteroidBelt.Interfaces;
 using UnityEngine;
 
-public class EnemyHitHandler : MonoBehaviour
+namespace AsteroidBelt.Enemies_scripts
 {
-    [Header("Health and score")]
-    public int health;
-    public int scoreToGive;
-    [SerializeField] private GameObject particles;
+    public class EnemyHitHandler : MonoBehaviour
+    {
+        [Header("Health and score")]
+        public int health;
+        public int scoreToGive;
+        [SerializeField] private GameObject particles;
 
-    [Header("Attributes")]
-    [SerializeField] private bool progessKillCount;
-    [SerializeField] private bool canDrop;
-    [SerializeField] private bool dropsPoints;
-    [SerializeField] private GameObject goldPoints;
-    [SerializeField] private GameObject[] itemDrop;
-    [SerializeField] private bool isBoss;
-    public AudioClip soundWhenTouched;
+        [Header("Attributes")]
+        [SerializeField] private bool progessKillCount;
+        [SerializeField] private bool canDrop;
+        [SerializeField] private bool dropsPoints;
+        [SerializeField] private GameObject goldPoints;
+        [SerializeField] private GameObject[] itemDrop;
+        [SerializeField] private bool isBoss;
+        public AudioClip soundWhenTouched;
 
-    Main main;
+        Main main;
 
-    private void Awake(){
-        main = Main.Instance;
-    }
-
-    private void FixedUpdate(){
-        if(transform.position.y < -13){
-            RemoveFromGame();
+        private void Awake(){
+            main = Main.Instance;
         }
-    }
 
-    public void checkDeath(int startingHealth, float randomScale){
-        if(health <= 0){
-            KillThis(startingHealth, randomScale);
-        }
-    }
-
-    public void TakeDamage(int receivedDamage){
-        health -= receivedDamage;
-    }
-
-    public void KillThis(int startingHealth, float randomScale){
-        main.currentScore += scoreToGive;
-
-        if(canDrop && !dropsPoints){
-            int i = Random.Range(1, 4);
-            if(i == 2){
-                DropPickUp();
+        private void FixedUpdate(){
+            if(transform.position.y < -13){
+                RemoveFromGame();
             }
         }
 
-        if(canDrop && dropsPoints){
-            DropPoints(startingHealth, randomScale);
+        public void checkDeath(int startingHealth, float randomScale){
+            if(health <= 0){
+                KillThis(startingHealth, randomScale);
+            }
         }
 
-        if(progessKillCount){
-            main.AddOneKill();
+        public void TakeDamage(int receivedDamage){
+            health -= receivedDamage;
         }
 
-        if(isBoss){
-            main.UpdatePhase();
+        public void KillThis(int startingHealth, float randomScale){
+            main.currentScore += scoreToGive;
+
+            if(canDrop && !dropsPoints){
+                int i = Random.Range(1, 4);
+                if(i == 2){
+                    DropPickUp();
+                }
+            }
+
+            if(canDrop && dropsPoints){
+                DropPoints(startingHealth, randomScale);
+            }
+
+            if(progessKillCount){
+                main.AddOneKill();
+            }
+
+            if(isBoss){
+                main.UpdatePhase();
+            }
+
+            Instantiate(particles, transform.position, Quaternion.identity);
+
+            Destroy(gameObject);
         }
 
-        Instantiate(particles, transform.position, Quaternion.identity);
-
-        Destroy(gameObject);
-    }
-
-    public void DropPickUp(){
-        if(main.playerHasBombs){
-            int i = Random.Range(0, itemDrop.Length);
-            Instantiate(itemDrop[i], transform.position, Quaternion.identity);
+        public void DropPickUp(){
+            if(main.playerHasBombs){
+                int i = Random.Range(0, itemDrop.Length);
+                Instantiate(itemDrop[i], transform.position, Quaternion.identity);
+            }
+            else{
+                Instantiate(itemDrop[0], transform.position, Quaternion.identity);
+            }
         }
-        else{
-            Instantiate(itemDrop[0], transform.position, Quaternion.identity);
-        }
-    }
 
-    public void DropPoints(int startingHealth, float randomScale){
-        for(int i = 0; i < (startingHealth * 3); i++){
-            Instantiate(goldPoints, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
+        public void DropPoints(int startingHealth, float randomScale){
+            for(int i = 0; i < (startingHealth * 3); i++){
+                Instantiate(goldPoints, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
+            }
         }
-    }
 
-    private void RemoveFromGame(){
-        Destroy(gameObject);
+        private void RemoveFromGame(){
+            Destroy(gameObject);
+        }
     }
 }

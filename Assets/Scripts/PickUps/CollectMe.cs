@@ -1,6 +1,8 @@
+using AsteroidBelt.Interfaces;
+using AsteroidBelt.Player_Scripts;
 using UnityEngine;
 
-namespace AsteroidBelt
+namespace AsteroidBelt.PickUps
 {
     public abstract class CollectMe : MonoBehaviour
     {
@@ -8,19 +10,24 @@ namespace AsteroidBelt
         public string collectibleName;
         public float lifeSpan;
 
-        public void Awake(){
+        public void Awake()
+        {
             player = Main.Instance.player.GetComponent<Player>();
         }
 
-        private void Update(){
+        private void Update()
+        {
             lifeSpan -= Time.deltaTime;
-            if(lifeSpan <= 0){
+            if (lifeSpan <= 0)
+            {
                 Destroy(gameObject);
             }
         }
 
-        private void OnTriggerEnter(Collider other){
-            if(other.gameObject.layer.Equals(6)){
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.layer.Equals(6))
+            {
                 CollectThis();
                 Destroy(gameObject);
             }

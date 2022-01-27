@@ -1,16 +1,19 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
-[CreateAssetMenu(menuName = "Shop Item/Bomb launcher")]
-public class BuyBombLauncher : ShopObject
+namespace AsteroidBelt.Interfaces.Shop.Item_shop_behaviours
 {
-    public override void BuyThisItem(){
-        UnlockBombs();
-    }
+    [CreateAssetMenu(menuName = "Shop Item/Bomb launcher")]
+    public class BuyBombLauncher : ShopObject
+    {
+        public override void BuyThisItem(){
+            UnlockBombs();
+        }
 
-    private void UnlockBombs(){
-        OnUnlockBombs?.Invoke();
-    }
+        private void UnlockBombs(){
+            OnUnlockBombs?.Invoke();
+        }
 
-    public static event Action OnUnlockBombs;
+        public static event Action OnUnlockBombs;
+    }
 }

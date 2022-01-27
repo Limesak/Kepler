@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public abstract class ShopObject : ScriptableObject
+namespace AsteroidBelt.Interfaces.Shop
 {
-    public string objectName;
-    public int costInGold;
-    public Sprite itemImage;
-    public bool needsBombLauncher;
-    public bool buyOneAtATime;
+    public abstract class ShopObject : ScriptableObject
+    {
+        public string objectName;
+        public int costInGold;
+        public Sprite itemImage;
+        public bool needsBombLauncher;
+        public bool buyOneAtATime;
 
-    public abstract void BuyThisItem();
+        public abstract void BuyThisItem();
+    }
 }

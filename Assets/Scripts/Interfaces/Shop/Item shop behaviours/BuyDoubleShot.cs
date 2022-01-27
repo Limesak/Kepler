@@ -1,12 +1,15 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
-[CreateAssetMenu(menuName = "Shop Item/DoubleShot")]
-public class BuyDoubleShot : ShopObject
+namespace AsteroidBelt.Interfaces.Shop.Item_shop_behaviours
 {
-    public override void BuyThisItem(){
-        OnUnlockDoubleShot?.Invoke();
-    }
+    [CreateAssetMenu(menuName = "Shop Item/DoubleShot")]
+    public class BuyDoubleShot : ShopObject
+    {
+        public override void BuyThisItem(){
+            OnUnlockDoubleShot?.Invoke();
+        }
 
-    public static event Action OnUnlockDoubleShot;
+        public static event Action OnUnlockDoubleShot;
+    }
 }

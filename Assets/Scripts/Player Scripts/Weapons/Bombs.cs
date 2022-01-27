@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace AsteroidBelt
+namespace AsteroidBelt.Player_Scripts.Weapons
 {
     public class Bombs : Bullet
     {

@@ -1,24 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+using AsteroidBelt.Player_Scripts.Weapons;
 using UnityEngine;
 
-public class HitAudio : MonoBehaviour
+namespace AsteroidBelt.Observers.Sounds
 {
-    private AudioSource audioSource;
+    public class HitAudio : MonoBehaviour
+    {
+        private AudioSource audioSource;
 
-    private void Awake(){
-        audioSource = GetComponent<AudioSource>();
-    }
+        private void Awake(){
+            audioSource = GetComponent<AudioSource>();
+        }
 
-    private void OnEnable(){
-        Bullet.OnPlayerFireHit += PlayHitAudio;
-    }
+        private void OnEnable(){
+            Bullet.OnPlayerFireHit += PlayHitAudio;
+        }
 
-    private void OnDisable(){
-        Bullet.OnPlayerFireHit -= PlayHitAudio;
-    }
+        private void OnDisable(){
+            Bullet.OnPlayerFireHit -= PlayHitAudio;
+        }
 
-    private void PlayHitAudio(){
-        audioSource.Play();
+        private void PlayHitAudio(){
+            audioSource.Play();
+        }
     }
 }
