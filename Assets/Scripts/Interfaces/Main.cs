@@ -46,7 +46,6 @@ public class Main : SingletonPersistent<Main>
         pauseAction.Pause.PauseGame.performed += _ => ChoosePauseAction();
 		startScreen.SetActive(true);
         stateOfPlay = "Start_Screen";
-        spawnManager = SpawnManager.Instance;
         shopManager = ShopManager.Instance;
 	}
 

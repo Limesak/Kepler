@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnManager : SingletonPersistent<SpawnManager>
+public class SpawnManager : MonoBehaviour
 {
     [Header("List of enemies")]
     [SerializeField] private GameObject standardFighter;
@@ -23,10 +23,6 @@ public class SpawnManager : SingletonPersistent<SpawnManager>
     private float goldenTimer;
 
     Main main;
-
-    public override void Awake(){
-        base.Awake();
-    }
 
     private void Start(){
         main = Main.Instance;
