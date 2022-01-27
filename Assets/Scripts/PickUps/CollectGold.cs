@@ -1,29 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using AsteroidBelt.Interfaces;
 using UnityEngine;
 
-namespace AsteroidBelt
+namespace AsteroidBelt.PickUps
 {
-    public class CollectGold : CollectMe 
+    public class CollectGold : CollectMe
     {
 
         public float movementSpeed = 4f;
         public int scoreToGive;
         public Rigidbody rb;
 
-        void Update(){
-            if(transform.position.y < -13) RemoveFromGame();
+        void Update()
+        {
+            if (transform.position.y < -13) RemoveFromGame();
         }
 
-        void Start(){
+        void Start()
+        {
             rb.velocity = transform.up * -movementSpeed;
         }
 
-        public override void CollectThis(){
+        public override void CollectThis()
+        {
             Main.Instance.currentScore += scoreToGive;
         }
 
-        void RemoveFromGame(){
+        void RemoveFromGame()
+        {
             Destroy(gameObject);
         }
     }

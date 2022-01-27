@@ -1,8 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
+using AsteroidBelt.Enemies_scripts;
 using UnityEngine;
 
-namespace AsteroidBelt
+namespace AsteroidBelt.Player_Scripts.Weapons
 {
     public class Blast : MonoBehaviour
     {

@@ -1,12 +1,15 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
-[CreateAssetMenu(menuName = "Shop Item/Dash")]
-public class BuyDash : ShopObject
+namespace AsteroidBelt.Interfaces.Shop.Item_shop_behaviours
 {
-    public override void BuyThisItem(){
-        OnUnlockDash?.Invoke();
-    }
+    [CreateAssetMenu(menuName = "Shop Item/Dash")]
+    public class BuyDash : ShopObject
+    {
+        public override void BuyThisItem(){
+            OnUnlockDash?.Invoke();
+        }
 
-    public static event Action OnUnlockDash;
+        public static event Action OnUnlockDash;
+    }
 }
