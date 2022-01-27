@@ -48,9 +48,27 @@ public class ShopManager : SingletonPersistent<ShopManager>
     }
 
     public void UpdateTheSlots(){
+        List<ShopObject> objectsToBuy = new List<ShopObject>();
+        foreach(ShopObject obj in itemsToBuy){
+            switch (main.playerHasBombs){
+                case true:
+                objectsToBuy.Add(obj);
+                break;
+                case false:
+                if(!obj.needsBombLauncher){
+                    objectsToBuy.Add(obj);
+                }
+                break;
+            }
+        }
+
         for(int i = 0; i < itemSlots.Length; i++){
-            int randomNum = Random.Range(0, itemsToBuy.Length);
-            var newItem = itemsToBuy[randomNum];
+            int randomNum = Random.Range(0, objectsToBuy.Count);
+            var newItem = objectsToBuy[randomNum];
+
+            if(newItem.buyOneAtATime){
+                objectsToBuy.Remove(newItem);
+            }
 
             itemSlots[i].GetComponent<ShopTemplate>().titleTxt.text = newItem.objectName;
             itemSlots[i].GetComponent<ShopTemplate>().cost = newItem.costInGold;
@@ -62,6 +80,7 @@ public class ShopManager : SingletonPersistent<ShopManager>
     private void HandleBombauncherSell(){
         main.player.GetComponent<Player>().hasBombs = true;
         main.playerHasBombs = true;
+        GainBombs(3);
     }
 
     private void GainBombs(int bombsRegained){

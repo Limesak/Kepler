@@ -15,3 +15,5 @@ MonoBehaviour:
   objectName: Bomb launcher
   costInGold: 300
   itemImage: {fileID: 0}
+  needsBombLauncher: 0
+  buyOneAtATime: 1

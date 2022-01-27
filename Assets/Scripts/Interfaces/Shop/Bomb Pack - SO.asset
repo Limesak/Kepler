@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509299523d3d05449ae67db9e9175708, type: 3}
   m_Name: Bomb Pack - SO
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   objectName: Bomb pack
   costInGold: 200
   itemImage: {fileID: 0}
+  needsBombLauncher: 1
+  buyOneAtATime: 0
   bombsRegained: 3
