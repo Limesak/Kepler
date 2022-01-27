@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: BombLauncher - SO
   m_EditorClassIdentifier: 
   objectName: Bomb launcher
-  costInGold: 300
+  costInGold: 500
   itemImage: {fileID: 0}
+  needsBombLauncher: 0
+  buyOneAtATime: 1

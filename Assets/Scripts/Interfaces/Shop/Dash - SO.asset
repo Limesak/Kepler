@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Dash - SO
   m_EditorClassIdentifier: 
   objectName: Dash
-  costInGold: 150
+  costInGold: 250
   itemImage: {fileID: 0}
+  needsBombLauncher: 0
+  buyOneAtATime: 1

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: DoubleShot - SO
   m_EditorClassIdentifier: 
   objectName: Double Shot
-  costInGold: 200
+  costInGold: 500
   itemImage: {fileID: 0}
+  needsBombLauncher: 0
+  buyOneAtATime: 1

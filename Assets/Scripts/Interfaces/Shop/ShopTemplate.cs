@@ -10,6 +10,7 @@ public class ShopTemplate : MonoBehaviour
     public TMP_Text costTxt;
     public int cost;
     public Image spriteOfItem;
+    [HideInInspector] public bool bought;
 
     Main main;
     ShopManager shopManager;
@@ -21,10 +22,10 @@ public class ShopTemplate : MonoBehaviour
     }
 
     public void PurchaseItem(){
-        if(main.currentScore > cost){
+        if(main.currentScore >= cost && !bought){
             main.currentScore -= cost;
             shopObject.BuyThisItem();
-            shopManager.CloseShop();
+            bought = true;
         }
     }
 }
