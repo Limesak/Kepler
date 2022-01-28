@@ -12,7 +12,7 @@ namespace AsteroidBelt.PickUps
 
         void Update()
         {
-            if (transform.position.y < -13) RemoveFromGame();
+            if (transform.position.y < -25) RemoveFromGame();
         }
 
         void Start()

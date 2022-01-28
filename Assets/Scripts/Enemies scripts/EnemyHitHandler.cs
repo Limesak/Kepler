@@ -26,7 +26,7 @@ namespace AsteroidBelt.Enemies_scripts
         }
 
         private void FixedUpdate(){
-            if(transform.position.y < -13){
+            if(transform.position.y < -25){
                 RemoveFromGame();
             }
         }
