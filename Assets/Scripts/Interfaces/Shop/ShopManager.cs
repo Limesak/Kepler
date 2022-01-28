@@ -66,6 +66,9 @@ namespace AsteroidBelt.Interfaces.Shop
             }
 
             for(int i = 0; i < itemSlots.Length; i++){
+                ShopTemplate selectedTemplate = itemSlots[i].GetComponent<ShopTemplate>();
+                selectedTemplate.bought = false;
+
                 int randomNum = Random.Range(0, objectsToBuy.Count);
                 var newItem = objectsToBuy[randomNum];
 
@@ -73,13 +76,14 @@ namespace AsteroidBelt.Interfaces.Shop
                     objectsToBuy.Remove(newItem);
                 }
 
-                itemSlots[i].GetComponent<ShopTemplate>().titleTxt.text = newItem.objectName;
-                itemSlots[i].GetComponent<ShopTemplate>().cost = newItem.costInGold;
-                itemSlots[i].GetComponent<ShopTemplate>().costTxt.text = itemSlots[i].GetComponent<ShopTemplate>().cost.ToString();
-                itemSlots[i].GetComponent<ShopTemplate>().shopObject = newItem;
+                selectedTemplate.titleTxt.text = newItem.objectName;
+                selectedTemplate.cost = newItem.costInGold;
+                selectedTemplate.costTxt.text = selectedTemplate.cost.ToString();
+                selectedTemplate.shopObject = newItem;
             }
         }
 
+        [ContextMenu("buy bombs")]
         private void HandleBombauncherSell(){
             main.player.GetComponent<Player>().hasBombs = true;
             main.playerHasBombs = true;
@@ -95,10 +99,12 @@ namespace AsteroidBelt.Interfaces.Shop
             }
         }
 
+        [ContextMenu("buy dash")]
         private void HandleDashSell(){
             main.player.GetComponent<Player>().hasDash = true;
         }
 
+        [ContextMenu("buy double shot")]
         private void HandleDoubleShotSell(){
             main.player.GetComponent<Player>().hasDoubleShot = true;
         }

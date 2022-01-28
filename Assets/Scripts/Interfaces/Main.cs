@@ -11,10 +11,10 @@ namespace AsteroidBelt.Interfaces
         public GameObject player;
 
         [Header("UI references")]
-        [SerializeField] private TextMeshPro lifeText;
-        [SerializeField] private TextMeshPro scoreText;
-        [SerializeField] private TextMeshPro endScreenText;
-        [SerializeField] private TextMeshPro killText;
+        [SerializeField] private TMP_Text lifeText;
+        [SerializeField] private TMP_Text scoreText;
+        [SerializeField] private TMP_Text endScreenText;
+        [SerializeField] private TMP_Text killText;
         [SerializeField] private GameObject endScreen;
         [SerializeField] private GameObject startScreen;
 

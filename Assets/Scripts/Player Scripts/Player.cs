@@ -11,8 +11,8 @@ namespace AsteroidBelt.Player_Scripts
         [Header("Player's movements stats")]
         public float baseVerticalSpeed = 5f;
         public float baseHorizontalSpeed = 7f;
-        public float dashSpeed;
-        public float dashDuration;
+        [SerializeField] private float dashSpeed;
+        [SerializeField] private float dashDuration;
         private float dashTimer;
         public float dashCooldown;
         private float rotationMagnitude = 40;
@@ -25,7 +25,7 @@ namespace AsteroidBelt.Player_Scripts
 
         [Header("Objects references")]
         public GameObject shipVisual;
-        public Collider playerCollider;
+        private Transform shipTransform;
         public Transform firePoint;
 
         [Header("Shots properties")]
@@ -37,13 +37,13 @@ namespace AsteroidBelt.Player_Scripts
         [HideInInspector] public bool hasDoubleShot, hasBombs;
         public float mainReloadTime;
         public float bombReloadTime;
-        private float mainReloadTimer;
-        private float bombReloadTimer;
+        private float mainReloadTimer, bombReloadTimer;
 
         [Header("Player health properties")]
         public int life;
         public int maxLife;
 
+        private Transform _transform;
         private Vector2 movementMagnitude, directionToDash;
         private Vector2 startPos = new Vector2(0, -5f);
         private Main main;
@@ -53,7 +53,9 @@ namespace AsteroidBelt.Player_Scripts
             main = Main.Instance;
             canMove = true;
             canTakeDamage = true;
-            transform.position = startPos;
+            _transform = transform;
+            shipTransform = shipVisual.GetComponent<Transform>();
+            _transform.localPosition = startPos;
         }
 
         private void Update()
@@ -82,14 +84,15 @@ namespace AsteroidBelt.Player_Scripts
 
                 if (isDashing)
                 {
-                    transform.localPosition += (Vector3)directionToDash * Time.deltaTime;
+                    _transform.localPosition += (Vector3)directionToDash * Time.deltaTime;
                     canTakeDamage = false;
                 }
             }
         }
 
-
+        //////////////////////////////////
         /////////Movements section////////
+        //////////////////////////////////
         public void MovementInput(InputAction.CallbackContext value)
         {
             Vector2 inputMagnitude = value.ReadValue<Vector2>();
@@ -98,13 +101,13 @@ namespace AsteroidBelt.Player_Scripts
 
         private void CalculateMovement()
         {
-            Vector2 futurePos = transform.localPosition;
+            Vector2 futurePos = _transform.localPosition;
             futurePos.x += movementMagnitude.x * baseHorizontalSpeed * Time.deltaTime;
             futurePos.y += movementMagnitude.y * baseVerticalSpeed * Time.deltaTime;
 
             if (canMove)
             {
-                transform.localPosition = futurePos;
+                _transform.localPosition = futurePos;
             }
 
             ClampPosition();
@@ -117,7 +120,7 @@ namespace AsteroidBelt.Player_Scripts
             Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
             pos.x = Mathf.Clamp01(pos.x);
             pos.y = Mathf.Clamp01(pos.y);
-            transform.position = Camera.main.ViewportToWorldPoint(pos);
+            _transform.position = Camera.main.ViewportToWorldPoint(pos);
         }
 
         // Rotates the player's ship when moving
@@ -125,7 +128,7 @@ namespace AsteroidBelt.Player_Scripts
         {
             Vector3 newRotation = new Vector3(0f, -(movementMagnitude.x * rotationMagnitude) + 180f, -90f);
             Quaternion newQuaternion = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
-            shipVisual.transform.rotation = Quaternion.RotateTowards(shipVisual.transform.rotation, newQuaternion, rotationSpeed);
+            shipTransform.rotation = Quaternion.RotateTowards(shipTransform.rotation, newQuaternion, rotationSpeed);
         }
 
         public void DashInput(InputAction.CallbackContext button)
@@ -148,6 +151,7 @@ namespace AsteroidBelt.Player_Scripts
                 directionToDash = (Vector2)transform.up * dashSpeed;
             }
 
+            OnDashPerformed?.Invoke();
             StartCoroutine(DashCoroutine());
 
             IEnumerator DashCoroutine()
@@ -167,9 +171,11 @@ namespace AsteroidBelt.Player_Scripts
             }
         }
 
-        ////////////////////////////////////
+        public static event Action OnDashPerformed;
 
+        //////////////////////////////////////////
         //////////Fire main weapon section////////
+        //////////////////////////////////////////
         public void FireInput(InputAction.CallbackContext button)
         {
             if (button.started)
@@ -203,7 +209,6 @@ namespace AsteroidBelt.Player_Scripts
         }
 
         public static event Action OnFireShot;
-        //////////////////////////////////////////
 
         public void BombInput(InputAction.CallbackContext button)
         {
@@ -223,6 +228,9 @@ namespace AsteroidBelt.Player_Scripts
 
         public static event Action OnBombLaunched;
 
+        ////////////////////////////////////////
+        /////////////PlayerHitSection///////////
+        ////////////////////////////////////////
         public void TakeDamage(int receivedDamage)
         {
             if (canTakeDamage)
@@ -237,7 +245,7 @@ namespace AsteroidBelt.Player_Scripts
             main.EndGame();
             main.UpdateEndScreenText();
             this.gameObject.SetActive(false);
-            transform.position = startPos;
+            _transform.position = startPos;
             life = 3;
             hasBombs = false;
             hasDoubleShot = false;
