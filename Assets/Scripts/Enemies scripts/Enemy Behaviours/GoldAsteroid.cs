@@ -11,7 +11,6 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
 
         [Header("Properties and stats")]
         private float randomScale;
-        private int damage = 1;
         private int startingHealth;
 
         [Header("Visual touches")]
@@ -19,7 +18,8 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
         [SerializeField] private float rotationSpeed;
         Quaternion currentRotation;
 
-        void Start () {
+        void Start () 
+        {
             randomScale = Random.Range(0.8f, 3f);
             Vector3 baseRotation = new Vector3(Random.Range(0, 90), Random.Range(0, 90), Random.Range(0, 90));        
             currentRotation.eulerAngles = baseRotation;
@@ -55,16 +55,6 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
             checkDeath(startingHealth, randomScale);
 
             model.transform.Rotate( 0f, 0f, rotationSpeed * Time.deltaTime);
-        }
-
-        private void OnTriggerEnter(Collider other){
-            if(other.gameObject.layer.Equals(6)){
-                DistributeDamage(other.gameObject);
-            }
-        }
-
-        private void DistributeDamage(GameObject target){
-            target.transform.parent.gameObject.GetComponent<Player>().TakeDamage(damage);
         }
     }
 }

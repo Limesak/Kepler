@@ -1,4 +1,5 @@
 using AsteroidBelt.Interfaces;
+using AsteroidBelt.Player_Scripts;
 using UnityEngine;
 
 namespace AsteroidBelt.Enemies_scripts
@@ -7,6 +8,7 @@ namespace AsteroidBelt.Enemies_scripts
     {
         [Header("Health and score")]
         public int health;
+        public int collisionDamage;
         public int scoreToGive;
         [SerializeField] private GameObject particles;
 
@@ -19,7 +21,8 @@ namespace AsteroidBelt.Enemies_scripts
         [SerializeField] private bool isBoss;
         public AudioClip soundWhenTouched;
 
-        Main main;
+        [HideInInspector] public bool lastHitByOtherEnemy;
+        public Main main;
 
         private void Awake(){
             main = Main.Instance;
@@ -55,7 +58,7 @@ namespace AsteroidBelt.Enemies_scripts
                 DropPoints(startingHealth, randomScale);
             }
 
-            if(progessKillCount){
+            if(progessKillCount && !lastHitByOtherEnemy){
                 main.AddOneKill();
             }
 
@@ -86,6 +89,28 @@ namespace AsteroidBelt.Enemies_scripts
 
         private void RemoveFromGame(){
             Destroy(gameObject);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.layer.Equals(6) || other.gameObject.layer.Equals(3))
+            {
+                DistributeDamage(other.gameObject);
+            }
+        }
+
+        private void DistributeDamage(GameObject target)
+        {
+            if(target.gameObject.layer.Equals(6))
+            {
+                lastHitByOtherEnemy = false;
+                target.transform.parent.gameObject.GetComponent<Player>().TakeDamage(collisionDamage);
+            }
+            else if(target.gameObject.layer.Equals(3))
+            {
+                target.transform.parent.gameObject.GetComponent<EnemyHitHandler>().lastHitByOtherEnemy = true;
+                target.transform.parent.gameObject.GetComponent<EnemyHitHandler>().TakeDamage(collisionDamage * 3);
+            }
         }
     }
 }

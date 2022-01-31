@@ -1,5 +1,4 @@
-﻿using AsteroidBelt.Player_Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
 {
@@ -8,10 +7,10 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
         [Header("Movements")]
         public float movementSpeed = 4f;
         private Vector2 travelDirection;
+        private Transform _transform;
 
         [Header("Properties and stats")]
         private float randomScale;
-        private int damage = 1;
 
         [Header("Visual touches")]
         [SerializeField] private GameObject model;
@@ -21,6 +20,8 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
 
         void Start()
         {
+            _transform = transform;
+
             model.GetComponent<MeshFilter>().mesh = possibleMeshes[(Random.Range(0, possibleMeshes.Length))];
 
             randomScale = Random.Range(3f, 9f);
@@ -43,8 +44,8 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
                 health = 6;
             }
 
-            transform.localScale = new Vector3(randomScale, randomScale, randomScale);
-            travelDirection = -transform.up;
+            _transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+            travelDirection = -_transform.up;
         }
 
         void Update()
@@ -52,25 +53,12 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
             Vector2 previousPos = transform.localPosition;
             Vector2 direction = transform.localPosition;
             direction += travelDirection * movementSpeed * Time.deltaTime;
-            transform.localPosition = direction;
-            Vector2 newPos = transform.localPosition;
+            _transform.localPosition = direction;
+            Vector2 newPos = _transform.localPosition;
 
             checkDeath(health, randomScale);
 
             model.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.layer.Equals(6))
-            {
-                DistributeDamage(other.gameObject);
-            }
-        }
-
-        private void DistributeDamage(GameObject target)
-        {
-            target.transform.parent.gameObject.GetComponent<Player>().TakeDamage(damage);
         }
     }
 }

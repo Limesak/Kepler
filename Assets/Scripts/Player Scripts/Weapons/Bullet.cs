@@ -54,6 +54,7 @@ namespace AsteroidBelt.Player_Scripts.Weapons
         }
 
         public virtual void DistributeDamage(GameObject target){
+            target.GetComponent<AsteroidBelt.Enemies_scripts.EnemyHitHandler>().lastHitByOtherEnemy = false;
             target.GetComponent<AsteroidBelt.Enemies_scripts.EnemyHitHandler>().TakeDamage(damage);
             Destroy(gameObject);
         }
