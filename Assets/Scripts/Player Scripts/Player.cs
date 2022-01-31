@@ -45,7 +45,7 @@ namespace AsteroidBelt.Player_Scripts
 
         private Transform _transform;
         private Vector2 movementMagnitude, directionToDash;
-        private Vector2 startPos = new Vector2(0, -10f);
+        private Vector2 startPos = new Vector2(0, -16f);
         private Main main;
 
         void Start()
