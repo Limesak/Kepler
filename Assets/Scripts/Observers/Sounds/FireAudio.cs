@@ -1,4 +1,5 @@
 using AsteroidBelt.Player_Scripts;
+using AsteroidBelt.Player_Scripts.Weapons;
 using UnityEngine;
 
 namespace AsteroidBelt.Observers.Sounds
@@ -9,6 +10,7 @@ namespace AsteroidBelt.Observers.Sounds
         [SerializeField] private AudioClip simpleShotsClip;
         [SerializeField] private AudioClip dashClip;
         [SerializeField] private AudioClip bombShotClip;
+        [SerializeField] private AudioClip bombExplosionClip;
 
         private void Awake(){
             audioSource = GetComponent<AudioSource>();
@@ -17,11 +19,13 @@ namespace AsteroidBelt.Observers.Sounds
         private void OnEnable(){
             Player.OnFireShot += PlayShotAudio;
             Player.OnDashPerformed += PlayDashAudio;
+            Bombs.OnBombExplosion += PlayExplosionAudio;
         }
 
         private void OnDisable(){
             Player.OnFireShot -= PlayShotAudio;
             Player.OnDashPerformed -= PlayDashAudio;
+            Bombs.OnBombExplosion -= PlayExplosionAudio;
         }
 
         private void PlayShotAudio(){
@@ -30,6 +34,10 @@ namespace AsteroidBelt.Observers.Sounds
 
         private void PlayDashAudio(){
             audioSource.PlayOneShot(dashClip);
+        }
+
+        private void PlayExplosionAudio(){
+            audioSource.PlayOneShot(bombExplosionClip);
         }
     }
 }

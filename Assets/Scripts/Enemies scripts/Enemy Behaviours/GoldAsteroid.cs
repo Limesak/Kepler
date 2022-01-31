@@ -41,7 +41,7 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
             }
 
             startingHealth = health;
-            transform.localScale = new Vector3(randomScale, randomScale, 1);
+            transform.localScale = new Vector3(randomScale, randomScale, randomScale);
             travelDirection = -transform.up;
         }
 	

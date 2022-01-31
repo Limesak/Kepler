@@ -13,6 +13,7 @@ namespace AsteroidBelt.Interfaces.Shop
         public bool shopIsOpen;
 
         Main main;
+        [HideInInspector] public Player playerScript;
 
         public override void Awake(){
             base.Awake();
@@ -20,6 +21,7 @@ namespace AsteroidBelt.Interfaces.Shop
     
         void Start(){
             main = Main.Instance;
+            playerScript = main.player.GetComponent<Player>();
         }
 
         void OnEnable(){
@@ -85,28 +87,28 @@ namespace AsteroidBelt.Interfaces.Shop
 
         [ContextMenu("buy bombs")]
         private void HandleBombauncherSell(){
-            main.player.GetComponent<Player>().hasBombs = true;
+            playerScript.hasBombs = true;
             main.playerHasBombs = true;
             GainBombs(3);
         }
 
         private void GainBombs(int bombsRegained){
-            if(main.player.GetComponent<Player>().bombsAmmo < main.player.GetComponent<Player>().maxBombAmmo){
-                main.player.GetComponent<Player>().bombsAmmo += bombsRegained;
+            if(playerScript.bombsAmmo < playerScript.maxBombAmmo){
+                playerScript.bombsAmmo += bombsRegained;
             }
-            if(main.player.GetComponent<Player>().bombsAmmo > main.player.GetComponent<Player>().maxBombAmmo){
-                main.player.GetComponent<Player>().bombsAmmo = main.player.GetComponent<Player>().maxBombAmmo;
+            if(playerScript.bombsAmmo > playerScript.maxBombAmmo){
+                playerScript.bombsAmmo = playerScript.maxBombAmmo;
             }
         }
 
         [ContextMenu("buy dash")]
         private void HandleDashSell(){
-            main.player.GetComponent<Player>().hasDash = true;
+            playerScript.hasDash = true;
         }
 
         [ContextMenu("buy double shot")]
         private void HandleDoubleShotSell(){
-            main.player.GetComponent<Player>().hasDoubleShot = true;
+            playerScript.hasDoubleShot = true;
         }
     }
 }

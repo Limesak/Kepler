@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System;
 
 namespace AsteroidBelt.Player_Scripts.Weapons
 {
@@ -25,9 +26,12 @@ namespace AsteroidBelt.Player_Scripts.Weapons
         }
 
         private void Explode(){
+            OnBombExplosion?.Invoke();
             var newBlast = Instantiate(blast, transform.position, Quaternion.identity);
             newBlast.GetComponent<Blast>().blastDamage = damage;
             Destroy(gameObject);
         }
+
+        public static event Action OnBombExplosion;
     }
 }
