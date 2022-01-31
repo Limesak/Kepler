@@ -22,6 +22,7 @@ namespace AsteroidBelt.Player_Scripts.Weapons
         public override void DistributeDamage(GameObject target)
         {
             base.DistributeDamage(target);
+            target.GetComponent<AsteroidBelt.Enemies_scripts.EnemyHitHandler>().lastHitByOtherEnemy = false;
             Explode();
         }
 

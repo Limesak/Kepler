@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 30
+  collisionDamage: 1
   scoreToGive: 500
   particles: {fileID: 1205300976700008, guid: 8f7360efd4de1764cb046972e00076dc, type: 3}
   progessKillCount: 0
