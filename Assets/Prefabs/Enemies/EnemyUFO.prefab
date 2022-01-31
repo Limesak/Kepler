@@ -61,10 +61,11 @@ MonoBehaviour:
   soundWhenTouched: {fileID: 0}
   lastHitByOtherEnemy: 0
   main: {fileID: 0}
-  speed: 5
+  multiplier: 10
+  speed: 7
   viewDistance: 20
-  numOfRays: 20
-  angle: 60
+  numOfRays: 6
+  angle: 120
 --- !u!54 &2159140784444471431
 Rigidbody:
   m_ObjectHideFlags: 0

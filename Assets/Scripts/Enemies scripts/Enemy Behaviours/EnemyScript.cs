@@ -6,6 +6,8 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
 {
     public class EnemyScript : EnemyHitHandler
     {
+        public int multiplier = 3;
+
         [Header("Movements")]
         public float speed;
         private Vector2 travelDirection;
@@ -30,15 +32,16 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
         void Update()
         {
             DrawRays();
-            FindClearPath();
-            _transform.localPosition += ((Vector3)FindClearPath() + (Vector3)travelDirection).normalized * speed * Time.deltaTime;
+            _transform.up = -FindClearPath();
+            //_transform.localPosition += (Vector3)FindClearPath().normalized * speed * Time.deltaTime;
+            _transform.localPosition += -_transform.up.normalized * speed * Time.deltaTime;
 
             checkDeath(health, 0f);
         }
 
         private Vector2 FindClearPath()
         {
-            Vector3 Bestdir = -_transform.up;
+            Vector3 Bestdir = travelDirection;
             float furthestClearPath = 0;
             RaycastHit hit;
             int mask = 1 << 3;
@@ -47,7 +50,7 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
             {
                 Vector2 dir = _transform.TransformDirection(directionsToCheck[i]);
                 if(Physics.Raycast( _transform.position, dir, out hit, viewDistance, mask))
-                {
+                {  
                     if(hit.distance > furthestClearPath)
                     {
                         Bestdir = dir;
@@ -59,17 +62,60 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
                     return dir;
                 }
             }
-
             return Bestdir;
         }
 
-        private void DrawRays(){
+        private void DrawRays()
+        {
+            //directionsToCheck.Add(-_transform.up);            
+
+            var subAngle = angle/(numOfRays * 2);
+
+            for (int i = 0; i <= numOfRays / 2; i++)
+            {
+                var currentAngle = subAngle * i;
+                //var rotationMod = Quaternion.AngleAxis(currentAngle, -_transform.forward);
+                //var rotationModBis = Quaternion.AngleAxis(currentAngle, _transform.forward);
+
+                var rotationVector = currentAngle * _transform.forward;
+                var rotation = Quaternion.Euler(rotationVector);
+
+                var rotationVectorBis = currentAngle * -_transform.forward;
+                var rotationBis = Quaternion.Euler(rotationVectorBis);
+
+                //var direction = rotationMod.normalized * -_transform.up * multiplier;
+                //var directionBis = rotationModBis.normalized * -_transform.up * multiplier;
+
+                var direction = rotation * -_transform.up;
+                var directionBis = rotationBis * -_transform.up;
+
+                //print(direction);
+                //print(rotation);
+
+                directionsToCheck.Add(direction);
+                directionsToCheck.Add(directionBis);
+            }
+
+            /*
             for(int i = 0; i < numOfRays; i++)
             {
                 var rotation = _transform.rotation;
                 var rotationMod = Quaternion.AngleAxis(i / ((float)numOfRays - 1) * angle * 2 - angle, -_transform.forward);
-                var direction = rotation * rotationMod * -_transform.up * 3;
+                var direction = rotation * rotationMod * -_transform.up;
                 directionsToCheck.Add(direction);
+            }
+            */
+
+            /*foreach(Vector2 directionToCheck in directionsToCheck){
+                print(directionToCheck);
+            }*/
+        }
+
+        private void OnDrawGizmos(){
+            Gizmos.color = Color.yellow;
+            for (int i = 0; i < directionsToCheck.Count; i++)
+            {
+                Gizmos.DrawRay( _transform.position, directionsToCheck[i] * viewDistance);                
             }
         }
 
