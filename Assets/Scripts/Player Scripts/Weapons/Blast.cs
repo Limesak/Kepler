@@ -33,7 +33,7 @@ namespace AsteroidBelt.Player_Scripts.Weapons
 
         private void DistributeDamage(GameObject target){
             if(canDamage){
-                target.GetComponent<AsteroidBelt.Enemies_scripts.EnemyHitHandler>().lastHitByOtherEnemy = false;
+                target.transform.parent.gameObject.GetComponent<AsteroidBelt.Enemies_scripts.EnemyHitHandler>().lastHitByOtherEnemy = false;
                 target.transform.parent.gameObject.GetComponent<EnemyHitHandler>().TakeDamage(blastDamage);
             }
         }

@@ -28,7 +28,7 @@ namespace AsteroidBelt.Enemies_scripts
             main = Main.Instance;
         }
 
-        private void FixedUpdate(){
+        private void LateUpdate(){
             if(transform.position.y < -25){
                 RemoveFromGame();
             }
@@ -44,9 +44,8 @@ namespace AsteroidBelt.Enemies_scripts
             health -= receivedDamage;
         }
 
-        public void KillThis(int startingHealth, float randomScale){
-            main.currentScore += scoreToGive;
-
+        public void KillThis(int startingHealth, float randomScale)
+        {
             if(canDrop && !dropsPoints){
                 int i = Random.Range(1, 4);
                 if(i == 2){
@@ -60,6 +59,11 @@ namespace AsteroidBelt.Enemies_scripts
 
             if(progessKillCount && !lastHitByOtherEnemy){
                 main.AddOneKill();
+            }
+
+            if(!lastHitByOtherEnemy)
+            {
+                main.currentScore += scoreToGive;
             }
 
             if(isBoss){
