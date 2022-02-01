@@ -6,20 +6,18 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
 {
     public class EnemyScript : EnemyHitHandler
     {
-        public int multiplier = 3;
-
         [Header("Movements")]
-        public float speed;
+        public float maxSpeed;
         private Vector2 travelDirection;
         [SerializeField] private float viewDistance;
         [SerializeField] private int numOfRays;
         [SerializeField] private float angle;
         private List<Vector2> directionsToCheck = new List<Vector2>();
 
-        [Header("Damage")]
-        private int damage = 1;
+        //[Header("Damage")]
 
         private Transform _transform;
+        private Vector2 velocity;
         private GameObject targetPlayer;
 
         private void Start()
@@ -27,109 +25,84 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
             targetPlayer = main.player;
             _transform = transform;
             travelDirection = -_transform.up;
+            velocity = travelDirection * 5f;
         }
 
-        void Update()
+        private void Update()
         {
-            DrawRays();
-            _transform.up = -FindClearPath();
-            //_transform.localPosition += (Vector3)FindClearPath().normalized * speed * Time.deltaTime;
-            _transform.localPosition += -_transform.up.normalized * speed * Time.deltaTime;
+            Vector2 acceleration = Vector2.zero;
+
+            if(WillCollide())
+            {
+                Vector2 clearPath = FindClearPath();
+                Vector2 steerForce = Steering(clearPath) * 15f;
+                acceleration += steerForce;
+            }
+
+            velocity += acceleration * Time.deltaTime;
+            float speed = velocity.magnitude;
+            Vector2 dir = velocity / speed;
+            speed = Mathf.Clamp(speed, 4f, maxSpeed);
+            velocity = dir * speed;
+
+            _transform.position += (Vector3)velocity * Time.deltaTime;
+            _transform.up = -dir;
 
             checkDeath(health, 0f);
         }
 
+        private bool WillCollide()
+        {
+            int mask = 1 << 3;
+            RaycastHit hit;
+            if(Physics.SphereCast(_transform.position, 5f, -_transform.up, out hit, viewDistance, mask))
+            {
+                Debug.Log("will hit");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
         private Vector2 FindClearPath()
         {
-            Vector3 Bestdir = travelDirection;
-            float furthestClearPath = 0;
-            RaycastHit hit;
+            DrawRays();
             int mask = 1 << 3;
 
             for (int i = 0; i < directionsToCheck.Count; i++)
             {
                 Vector2 dir = _transform.TransformDirection(directionsToCheck[i]);
-                if(Physics.Raycast( _transform.position, dir, out hit, viewDistance, mask))
-                {  
-                    if(hit.distance > furthestClearPath)
-                    {
-                        Bestdir = dir;
-                        furthestClearPath = hit.distance;
-                    }
-                }
-                else
+                Ray ray = new Ray(_transform.position, dir);
+                if(!Physics.SphereCast(ray, 5f, viewDistance, mask))
                 {
                     return dir;
                 }
             }
-            return Bestdir;
+            return -_transform.up + (Vector3)travelDirection;
         }
 
         private void DrawRays()
-        {
-            //directionsToCheck.Add(-_transform.up);            
-
+        {   
             var subAngle = angle/(numOfRays * 2);
 
             for (int i = 0; i <= numOfRays / 2; i++)
             {
                 var currentAngle = subAngle * i;
-                //var rotationMod = Quaternion.AngleAxis(currentAngle, -_transform.forward);
-                //var rotationModBis = Quaternion.AngleAxis(currentAngle, _transform.forward);
-
-                var rotationVector = currentAngle * _transform.forward;
-                var rotation = Quaternion.Euler(rotationVector);
-
-                var rotationVectorBis = currentAngle * -_transform.forward;
-                var rotationBis = Quaternion.Euler(rotationVectorBis);
-
-                //var direction = rotationMod.normalized * -_transform.up * multiplier;
-                //var directionBis = rotationModBis.normalized * -_transform.up * multiplier;
-
-                var direction = rotation * -_transform.up;
-                var directionBis = rotationBis * -_transform.up;
-
-                //print(direction);
-                //print(rotation);
+                var direction = Quaternion.AngleAxis(currentAngle, -_transform.forward) * -_transform.up;
+                var directionBis = Quaternion.AngleAxis(currentAngle, _transform.forward) * -_transform.up;
 
                 directionsToCheck.Add(direction);
                 directionsToCheck.Add(directionBis);
             }
-
-            /*
-            for(int i = 0; i < numOfRays; i++)
-            {
-                var rotation = _transform.rotation;
-                var rotationMod = Quaternion.AngleAxis(i / ((float)numOfRays - 1) * angle * 2 - angle, -_transform.forward);
-                var direction = rotation * rotationMod * -_transform.up;
-                directionsToCheck.Add(direction);
-            }
-            */
-
-            /*foreach(Vector2 directionToCheck in directionsToCheck){
-                print(directionToCheck);
-            }*/
         }
 
-        private void OnDrawGizmos(){
-            Gizmos.color = Color.yellow;
-            for (int i = 0; i < directionsToCheck.Count; i++)
-            {
-                Gizmos.DrawRay( _transform.position, directionsToCheck[i] * viewDistance);                
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
+        Vector2 Steering(Vector2 vector)
         {
-            if (other.gameObject.layer.Equals(6))
-            {
-                DistributeDamage(other.gameObject);
-            }
-        }
-
-        private void DistributeDamage(GameObject target)
-        {
-            target.transform.parent.gameObject.GetComponent<Player>().TakeDamage(damage);
+            Vector2 v = vector.normalized * maxSpeed - velocity;
+            return Vector2.ClampMagnitude(v, 3f);
         }
     }
 }
