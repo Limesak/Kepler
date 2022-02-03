@@ -17,11 +17,12 @@ namespace AsteroidBelt.Interfaces
         [SerializeField] private TMP_Text killText;
         [SerializeField] private GameObject endScreen;
         [SerializeField] private GameObject startScreen;
+        [SerializeField] private Animator phasesAnnounce;
 
         [Header("Game current state")]
         public string stateOfPlay;
         public string phaseOfBattle;
-        public int enemiesLeft = 25;
+        public int enemiesLeft = 5;
         [HideInInspector] public int killCount = 0;
         public int currentLevel;
         public int currentScore;
@@ -68,7 +69,7 @@ namespace AsteroidBelt.Interfaces
         void Update(){        
             UpdateScoreHUD();
 
-            if(killCount == 25){
+            if(killCount == 5){
                 UpdatePhase();
                 ResetKills();
             }
@@ -105,13 +106,14 @@ namespace AsteroidBelt.Interfaces
 
         public void AddOneKill(){
             killCount++;
-            enemiesLeft = 25 - killCount;
+            enemiesLeft = 5 - killCount;
             UpdateKillText();
         }
 
         public void UpdatePhase(){
             if (phaseOfBattle.Equals("Field_Phase")){
                 phaseOfBattle = "Squad_Phase";
+                phasesAnnounce.SetTrigger("BossAppears");
             }
             else if (phaseOfBattle.Equals("Squad_Phase")){
                 shopManager.OpenShop();
@@ -120,7 +122,8 @@ namespace AsteroidBelt.Interfaces
 
         public void NextLevel(){
             phaseOfBattle = "Field_Phase";
-            enemiesLeft = 25;
+            enemiesLeft = 5;
+            UpdateKillText();
             currentLevel++;
         }
 

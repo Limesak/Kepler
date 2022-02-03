@@ -58,9 +58,9 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
 
             protection -= Time.deltaTime;
 
-            if (transform.position.y > 4)
+            if (transform.position.y > 2)
             { 
-                transform.Translate(Vector3.down * 1.3f * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.down * 3.5f * Time.deltaTime, Space.World);
             }
 
             checkDeath(health, 0f);

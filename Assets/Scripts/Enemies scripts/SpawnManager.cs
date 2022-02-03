@@ -55,7 +55,7 @@ namespace AsteroidBelt.Enemies_scripts
         private void SpawnAnEnemy(){
             if(fighterTimer <= 0){
                 Transform newFighter = Instantiate(standardFighter).transform;
-                float posx = Random.Range(-17f, 17f);
+                float posx = Random.Range(-11f, 11f);
                 newFighter.position = new Vector2(posx, spawnTransform.position.y);
 
                 standardFighterDelay = Random.Range(0.5f, 3f);
@@ -69,7 +69,7 @@ namespace AsteroidBelt.Enemies_scripts
 
                 for(int i = 0; i < numberAsteroids; i++){
                     Transform newAsteroid = Instantiate(asteroid).transform;
-                    float posx = Random.Range(-17f, 17f);
+                    float posx = Random.Range(-25f, 25f);
                     newAsteroid.position = new Vector2(posx, spawnTransform.position.y);
                 }
                 asteroidDelay = Random.Range(0.6f, 1.8f);
@@ -80,7 +80,7 @@ namespace AsteroidBelt.Enemies_scripts
         private void SpawnGoldenAsteroid(){
             if(goldenTimer <= 0){
                 Transform newGolden = Instantiate(goldenAsteroid).transform;
-                float posx = Random.Range(-17f, 17f);
+                float posx = Random.Range(-15f, 15f);
                 newGolden.position = new Vector2(posx, spawnTransform.position.y);
 
                 goldenAsteroiddDelay = Random.Range(7.4f, 13.5f);
@@ -90,7 +90,7 @@ namespace AsteroidBelt.Enemies_scripts
 
         private void SpawnTheBoss(){
             if(!bossSpawned){
-                Instantiate(bossFighter, spawnTransform.position, Quaternion.identity);
+                Instantiate(bossFighter, new Vector2(spawnTransform.position.x, spawnTransform.position.y + 25f), Quaternion.identity);
                 bossSpawned = true;
             }
         }

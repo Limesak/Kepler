@@ -29,11 +29,11 @@ namespace AsteroidBelt.Player_Scripts.Weapons
         }
 
         public void FixedUpdate(){
-            previousPos = transform.localPosition;
-            Vector2 direction = transform.localPosition;
+            previousPos = transform.position;
+            Vector2 direction = transform.position;
             direction += travelDirection * bulletSpeed * Time.deltaTime;
-            transform.localPosition = direction;
-            newPos = transform.localPosition;
+            transform.position = direction;
+            newPos = transform.position;
 
             DetectCollision();
         }
