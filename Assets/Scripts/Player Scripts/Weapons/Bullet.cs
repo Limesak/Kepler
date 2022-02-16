@@ -43,13 +43,22 @@ namespace AsteroidBelt.Player_Scripts.Weapons
         }
 
         private void DetectCollision(){
-            int mask = 1 << 3;
+            int mask = 1 << 3 | 1 << 7;
 
             RaycastHit hit;
 
             if(Physics.Linecast(previousPos, newPos, out hit, mask)){
-                OnPlayerFireHit?.Invoke();
-                DistributeDamage(hit.transform.gameObject);
+
+                switch (hit.transform.gameObject.layer){
+                    case 3:
+                        OnPlayerFireHit?.Invoke();
+                        DistributeDamage(hit.transform.gameObject);
+                        break;
+                    case 7:
+                        OnPlayerFireHit?.Invoke();
+                        Destroy(gameObject);
+                        break;
+                }
             }
         }
 

@@ -22,7 +22,7 @@ namespace AsteroidBelt.Enemies_scripts
         public AudioClip soundWhenTouched;
 
         [HideInInspector] public bool lastHitByOtherEnemy;
-        public Main main;
+        [HideInInspector] public Main main;
 
         private void Awake(){
             main = Main.Instance;
@@ -40,7 +40,7 @@ namespace AsteroidBelt.Enemies_scripts
             }
         }
 
-        public void TakeDamage(int receivedDamage){
+        public virtual void TakeDamage(int receivedDamage){
             health -= receivedDamage;
         }
 
@@ -105,12 +105,12 @@ namespace AsteroidBelt.Enemies_scripts
 
         private void DistributeDamage(GameObject target)
         {
-            if(target.gameObject.layer.Equals(6))
+            if(target.layer.Equals(6))
             {
                 lastHitByOtherEnemy = false;
                 target.transform.parent.gameObject.GetComponent<Player>().TakeDamage(collisionDamage);
             }
-            else if(target.gameObject.layer.Equals(3))
+            else if(target.layer.Equals(3))
             {
                 target.transform.parent.gameObject.GetComponent<EnemyHitHandler>().lastHitByOtherEnemy = true;
                 target.transform.parent.gameObject.GetComponent<EnemyHitHandler>().TakeDamage(collisionDamage * 3);

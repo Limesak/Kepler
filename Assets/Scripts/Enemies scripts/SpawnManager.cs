@@ -9,7 +9,7 @@ namespace AsteroidBelt.Enemies_scripts
         [SerializeField] private GameObject standardFighter;
         [SerializeField] private GameObject asteroid;
         [SerializeField] private GameObject goldenAsteroid;
-        [SerializeField] private GameObject bossFighter;
+        [SerializeField] private GameObject levelBoss;
 
         [Header("State of spawning")]
         public bool bossSpawned;
@@ -90,7 +90,7 @@ namespace AsteroidBelt.Enemies_scripts
 
         private void SpawnTheBoss(){
             if(!bossSpawned){
-                Instantiate(bossFighter, new Vector2(spawnTransform.position.x, spawnTransform.position.y + 25f), Quaternion.identity);
+                levelBoss.SetActive(true);
                 bossSpawned = true;
             }
         }

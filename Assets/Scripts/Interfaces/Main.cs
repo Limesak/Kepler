@@ -22,7 +22,8 @@ namespace AsteroidBelt.Interfaces
         [Header("Game current state")]
         public string stateOfPlay;
         public string phaseOfBattle;
-        public int enemiesLeft = 5;
+        public int enemiesToFight;
+        private int enemiesLeft;
         [HideInInspector] public int killCount = 0;
         public int currentLevel;
         public int currentScore;
@@ -64,12 +65,13 @@ namespace AsteroidBelt.Interfaces
             phaseOfBattle = "Field_Phase";
             currentLevel = 1;
             UpdateLifeHUD(player.GetComponent<Player>().life);
+            enemiesLeft = enemiesToFight;
         }
 
         void Update(){        
             UpdateScoreHUD();
 
-            if(killCount == 5){
+            if(killCount == enemiesToFight){
                 UpdatePhase();
                 ResetKills();
             }
@@ -106,7 +108,7 @@ namespace AsteroidBelt.Interfaces
 
         public void AddOneKill(){
             killCount++;
-            enemiesLeft = 5 - killCount;
+            enemiesLeft = enemiesToFight - killCount;
             UpdateKillText();
         }
 
@@ -122,7 +124,7 @@ namespace AsteroidBelt.Interfaces
 
         public void NextLevel(){
             phaseOfBattle = "Field_Phase";
-            enemiesLeft = 5;
+            enemiesLeft = enemiesToFight;
             UpdateKillText();
             currentLevel++;
         }
