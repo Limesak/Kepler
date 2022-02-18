@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4059243447432598914}
   - component: {fileID: 5044172504726106644}
-  m_Layer: 0
+  - component: {fileID: -1449215563524716667}
+  m_Layer: 7
   m_Name: Minion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,6 +50,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &-1449215563524716667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601301919256606279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8120f6afb90664b83372e41bc27fa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  collisionDamage: 1
+  scoreToGive: 0
+  particles: {fileID: 0}
+  progessKillCount: 0
+  canDrop: 0
+  dropsPoints: 0
+  goldPoints: {fileID: 0}
+  itemDrop: []
+  isBoss: 0
+  soundWhenTouched: {fileID: 0}
+  lastHitByOtherEnemy: 0
+  main: {fileID: 0}
+  speed: 12
 --- !u!1 &6708481879437837718
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,7 +87,7 @@ GameObject:
   - component: {fileID: 17297449314434067}
   - component: {fileID: 8532314847747402723}
   - component: {fileID: 6350671037437463069}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1715734614020421962}
   - component: {fileID: 1571017800776360792}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}

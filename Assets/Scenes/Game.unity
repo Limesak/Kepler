@@ -177,11 +177,41 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 22687403}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14, y: -20, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14, y: -26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 883161600}
+  m_Father: {fileID: 1846195470}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &38221329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 38221330}
+  m_Layer: 0
+  m_Name: Boss minions spot (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &38221330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38221329}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14, y: -29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 405549092}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &61681126
@@ -499,7 +529,7 @@ MonoBehaviour:
   phasesAnnounce: {fileID: 2138257695}
   stateOfPlay: 
   phaseOfBattle: 
-  enemiesToFight: 3
+  enemiesToFight: 2
   killCount: 0
   currentLevel: 0
   currentScore: 0
@@ -519,6 +549,36 @@ Transform:
   - {fileID: 459757845}
   - {fileID: 1657166944}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &261009713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 261009714}
+  m_Layer: 0
+  m_Name: Boss minions spot (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &261009714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261009713}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14, y: -26, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 405549092}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &349750756
@@ -553,6 +613,41 @@ Transform:
   - {fileID: 883161600}
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &405549091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 405549092}
+  m_Layer: 0
+  m_Name: Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &405549092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405549091}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 261009714}
+  - {fileID: 38221330}
+  - {fileID: 1720791518}
+  - {fileID: 1428986556}
+  - {fileID: 993435006}
+  m_Father: {fileID: 883161600}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &459757844
 GameObject:
@@ -770,7 +865,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: -0.3542622, y: 0.000000016090475, z: 0.000000006095569, w: 0.9351462}
+  m_LocalRotation: {x: -0.3542622, y: -0.000000016090484, z: -0.000000006095573, w: 0.9351462}
   m_LocalPosition: {x: 0, y: -20, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1208,6 +1303,36 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 769825935}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &791909624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 791909625}
+  m_Layer: 0
+  m_Name: Boss minions spot (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &791909625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791909624}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14, y: -29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1846195470}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &855528045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,7 +1393,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855528045}
-  m_LocalRotation: {x: -0.3542622, y: 0.000000016090475, z: 0.000000006095569, w: 0.9351462}
+  m_LocalRotation: {x: -0.3542622, y: -0.000000016090484, z: -0.000000006095573, w: 0.9351462}
   m_LocalPosition: {x: 0, y: -15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1392,8 +1517,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 993435006}
-  - {fileID: 22687404}
+  - {fileID: 405549092}
+  - {fileID: 1846195470}
   m_Father: {fileID: 349750757}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1941,12 +2066,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993435005}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14, y: -20, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14, y: -38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 883161600}
-  m_RootOrder: 0
+  m_Father: {fileID: 405549092}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1018825309
 GameObject:
@@ -2980,6 +3105,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319115010}
   m_CullTransparentMesh: 1
+--- !u!1 &1320583679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1320583680}
+  m_Layer: 0
+  m_Name: Boss minions spot (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1320583680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320583679}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14, y: -32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1846195470}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1364644982
 GameObject:
   m_ObjectHideFlags: 0
@@ -3153,6 +3308,66 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1428986555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1428986556}
+  m_Layer: 0
+  m_Name: Boss minions spot (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1428986556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428986555}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14, y: -35, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 405549092}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1430553522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1430553523}
+  m_Layer: 0
+  m_Name: Boss minions spot (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1430553523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430553522}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14, y: -35, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1846195470}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1453004693
 GameObject:
   m_ObjectHideFlags: 0
@@ -3252,6 +3467,36 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2589032972024414758}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1549877972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1549877973}
+  m_Layer: 0
+  m_Name: Boss minions spot (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1549877973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549877972}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14, y: -38, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1846195470}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1559031042
 GameObject:
   m_ObjectHideFlags: 0
@@ -3465,6 +3710,36 @@ Transform:
   m_Father: {fileID: 236499117}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1720791517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1720791518}
+  m_Layer: 0
+  m_Name: Boss minions spot (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1720791518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720791517}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14, y: -32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 405549092}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1761255830
 GameObject:
   m_ObjectHideFlags: 0
@@ -3595,6 +3870,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 375805056195671555}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1846195469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1846195470}
+  m_Layer: 0
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1846195470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846195469}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 22687404}
+  - {fileID: 791909625}
+  - {fileID: 1320583680}
+  - {fileID: 1430553523}
+  - {fileID: 1549877973}
+  m_Father: {fileID: 883161600}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1931601964
 GameObject:
   m_ObjectHideFlags: 0
@@ -4200,6 +4510,86 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: minionsPerWave
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot
+      value: 
+      objectReference: {fileID: 993435006}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot
+      value: 
+      objectReference: {fileID: 22687404}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: delayBetweenActions
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot.Array.data[0]
+      value: 
+      objectReference: {fileID: 993435006}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot.Array.data[1]
+      value: 
+      objectReference: {fileID: 1428986556}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot.Array.data[2]
+      value: 
+      objectReference: {fileID: 1720791518}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot.Array.data[3]
+      value: 
+      objectReference: {fileID: 38221330}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot.Array.data[4]
+      value: 
+      objectReference: {fileID: 261009714}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot.Array.data[0]
+      value: 
+      objectReference: {fileID: 1549877973}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot.Array.data[1]
+      value: 
+      objectReference: {fileID: 1430553523}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot.Array.data[2]
+      value: 
+      objectReference: {fileID: 1320583680}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot.Array.data[3]
+      value: 
+      objectReference: {fileID: 791909625}
+    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot.Array.data[4]
+      value: 
+      objectReference: {fileID: 22687404}
     - target: {fileID: 2701324882463200870, guid: e62a2bc74a5560f4caa922ec36c05475,
         type: 3}
       propertyPath: m_Name
