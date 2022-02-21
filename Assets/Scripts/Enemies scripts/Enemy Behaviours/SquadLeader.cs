@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using AsteroidBelt.Interfaces;
 
 namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
 {
@@ -9,10 +10,13 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
         [Header("Combat stats")]
         [SerializeField] private float delayBetweenActions = 4f;
         public int minionsPerWave;
-        private bool fightStarted;
+        private bool fightStarted, followPlayerMoves;
         private string previousAction;
         private int actionsBfrExposedWeakness = 0;
         private int weakPointsRemaining = 0;
+
+        [Header("Movements")]
+        private float rotationSpeed = 0.1f;
 
         [Header("Objects in scene")]
         public Transform leftspawn;
@@ -35,6 +39,14 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
                     fightStarted = true;
                     StartCoroutine(ChooseAction());
                 }
+            }
+
+            if(followPlayerMoves){
+                Vector3 dirToPlayer = (Main.Instance.player.transform.position - transform.position);
+                float singleStep = rotationSpeed * Time.deltaTime;
+                Vector3 newDirection = Vector3.RotateTowards(transform.forward, dirToPlayer, singleStep, 0.0f);
+
+                transform.rotation = Quaternion.LookRotation(newDirection);
             }
 
             checkDeath(health, 0f);
@@ -133,11 +145,19 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
         }
 
         private void PrepareAttack(){
-            Debug.Log("Attack");
-            Instantiate(shot, transform.position, transform.rotation);
+            StartCoroutine(UseAttack());
+            followPlayerMoves = true;
+            Vector3 rotation = new Vector3(90f, 0f, 0f);
+            transform.DORotate(rotation, 0.5f, RotateMode.Fast);
 
+            Debug.Log("Attack");
             previousAction = "PrepareAttack";
             actionsBfrExposedWeakness++;
+
+            IEnumerator UseAttack(){
+                yield return new WaitForSeconds(2f);
+                Instantiate(shot, transform.position, Quaternion.identity);
+            }
         }
 
         private IEnumerator EndPhase(){
@@ -148,6 +168,7 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
 
         private void ReturnToIdle(){
             Debug.Log("Return to idle");
+            followPlayerMoves = false;
             Vector3 baseRotation = new Vector3(0f, 0f, 0f);
             transform.DORotate(baseRotation, 0.5f, RotateMode.Fast);
 
