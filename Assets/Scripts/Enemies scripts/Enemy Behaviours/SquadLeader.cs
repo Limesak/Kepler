@@ -13,12 +13,14 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
         private bool fightStarted, followPlayerMoves;
         private string previousAction;
         private int actionsBfrExposedWeakness = 0;
-        private int weakPointsRemaining = 0;
+        public int weakPointsRemaining = 0;
+        private bool canBeDamaged; 
 
         [Header("Movements")]
         private float rotationSpeed = 0.1f;
 
         [Header("Objects in scene")]
+        public GameObject bossBody;
         public Transform leftspawn;
         public Transform rightspawn;
         public Transform[] leftMinionsSpot;
@@ -26,6 +28,7 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
 
         [Header("Instantiated objects")]
         public GameObject minion;
+        public GameObject basicEnemies;
         public GameObject shot;
 
         void Update(){
@@ -39,6 +42,14 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
                     fightStarted = true;
                     StartCoroutine(ChooseAction());
                 }
+            }
+
+            if(weakPointsRemaining == 0){
+                canBeDamaged = true;
+            }
+
+            if(canBeDamaged){
+                bossBody.layer = 3;
             }
 
             if(followPlayerMoves){
@@ -55,36 +66,53 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
         private IEnumerator ChooseAction(){
             yield return new WaitForSeconds(delayBetweenActions);
             int rdmChoice = Random.Range(1, 3);
-            switch (actionsBfrExposedWeakness){
-                case 2:
-                    RotateBoss();
-                    break;
-                case 1:
-                    if(previousAction.Equals("SpawnMinions")){
-                        if(rdmChoice.Equals(2)){
-                            PrepareAttack();
+
+            if(!canBeDamaged){
+                switch (actionsBfrExposedWeakness){
+                    case 2:
+                        RotateBoss();
+                        break;
+                    case 1:
+                        if(previousAction.Equals("SpawnMinions")){
+                            if(rdmChoice.Equals(2)){
+                                PrepareAttack();
+                            }
+                            else{
+                                RotateBoss();
+                            }
                         }
-                        else{
-                            RotateBoss();
+                        else if(previousAction.Equals("PrepareAttack")){
+                            if(rdmChoice.Equals(2)){
+                                SpawnMinions();
+                            }
+                            else{
+                                RotateBoss();
+                            }
                         }
-                    }
-                    else if(previousAction.Equals("PrepareAttack")){
-                        if(rdmChoice.Equals(2)){
+                        break;
+                    case 0:
+                        if(rdmChoice.Equals(1)){
                             SpawnMinions();
                         }
                         else{
-                            RotateBoss();
+                            PrepareAttack();
                         }
-                    }
-                    break;
-                case 0:
-                    if(rdmChoice.Equals(1)){
-                        SpawnMinions();
-                    }
-                    else{
+                        break;
+                }
+            }
+
+            else{
+                switch(rdmChoice){
+                    case 1:
                         PrepareAttack();
-                    }
+                        break;
+                    case 2:
+                        SpawnMinions();
+                        break;
+                    case 3:
+                        SpawnMinions();
                     break;
+                }
             }
 
             StartCoroutine(EndPhase());
@@ -128,9 +156,11 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
             switch (weakPointsRemaining){
                 case 2:
                     goToRotation = rotationLeft;
+                    SpawnBasicEnemies("left");
                     break;
                 case 1:
                     goToRotation = rotationRight;
+                    SpawnBasicEnemies("right");
                     break;
             }
 
@@ -140,8 +170,24 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
             actionsBfrExposedWeakness = 0;
         }
 
-        private void SpawnBasicEnemies(){
+        private void SpawnBasicEnemies(string side){
             Debug.Log("spawn basic");
+            StartCoroutine(DelayedSpawns());
+
+            IEnumerator DelayedSpawns(){
+                if(side.Equals("left")){
+                    for(int i = 0; i < 5; i++){
+                        yield return new WaitForSeconds(0.7f);
+                        Instantiate(basicEnemies, leftspawn.position, Quaternion.identity);
+                    }
+                }
+                else{
+                    for(int i = 0; i < 5; i++){
+                        yield return new WaitForSeconds(0.2f);
+                        Instantiate(basicEnemies, rightspawn.position, Quaternion.identity);
+                    }
+                }
+            }
         }
 
         private void PrepareAttack(){
@@ -156,7 +202,8 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
 
             IEnumerator UseAttack(){
                 yield return new WaitForSeconds(2f);
-                Instantiate(shot, transform.position, Quaternion.identity);
+                GameObject newShot = Instantiate(shot, transform.position, Quaternion.identity);
+                newShot.GetComponent<bossShot>().SetDirection(transform.forward);
             }
         }
 

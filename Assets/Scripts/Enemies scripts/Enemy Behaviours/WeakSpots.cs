@@ -7,9 +7,24 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
     public class WeakSpots : EnemyHitHandler
     {
         public SquadLeader bossScript;
+        private bool destroyed;
+        [SerializeField] private int weakSpotHealth;
 
         public override void TakeDamage(int receivedDamage){
-            bossScript.TakeDamage(receivedDamage);
+            if(!destroyed){
+                weakSpotHealth -= receivedDamage;
+            }
+        }
+        
+        private void Update(){
+            if(weakSpotHealth <= 0){
+                DestroyWeakSpot();
+            }
+        }
+
+        private void DestroyWeakSpot(){
+            bossScript.weakPointsRemaining--;
+            destroyed = true;
         }
     }
 }
