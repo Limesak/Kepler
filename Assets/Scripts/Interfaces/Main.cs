@@ -9,23 +9,29 @@ namespace AsteroidBelt.Interfaces
     public class Main : SingletonPersistent<Main>
     {
         public GameObject player;
+        public float secondsBeforeBoss;
+        private float timeLeft;
 
         [Header("UI references")]
         [SerializeField] private TMP_Text lifeText;
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private TMP_Text endScreenText;
         [SerializeField] private TMP_Text killText;
+        [SerializeField] private TMP_Text timerText;
         [SerializeField] private GameObject endScreen;
         [SerializeField] private GameObject startScreen;
+        [SerializeField] private Animator phasesAnnounce;
 
         [Header("Game current state")]
         public string stateOfPlay;
         public string phaseOfBattle;
-        public int enemiesLeft = 25;
+        public int enemiesToFight;
+        private int enemiesLeft;
         [HideInInspector] public int killCount = 0;
         public int currentLevel;
         public int currentScore;
         [HideInInspector] public bool playerHasBombs;
+        public bool phaseDone;
 
         PauseAction pauseAction;
         ShopManager shopManager;
@@ -56,6 +62,7 @@ namespace AsteroidBelt.Interfaces
 
         // Lance la partie en appuyant sur start sur le premier écran
         public void StartGame(){
+            phaseDone = false;
             stateOfPlay = "Active_Game";
             startScreen.SetActive(false);
             endScreen.SetActive(false);
@@ -63,13 +70,26 @@ namespace AsteroidBelt.Interfaces
             phaseOfBattle = "Field_Phase";
             currentLevel = 1;
             UpdateLifeHUD(player.GetComponent<Player>().life);
+            enemiesLeft = enemiesToFight;
+            timeLeft = secondsBeforeBoss;
         }
 
         void Update(){        
             UpdateScoreHUD();
 
-            if(killCount == 25){
+            if(timeLeft > 0){
+                timeLeft -= Time.deltaTime;
+            }
+
+            timerText.text = "" + (int)timeLeft;
+
+            if(timeLeft <= 0 && !phaseDone){
+                phaseDone = true;
                 UpdatePhase();
+            }
+
+            if(killCount == enemiesToFight){
+                shopManager.OpenShop();
                 ResetKills();
             }
         }
@@ -105,22 +125,24 @@ namespace AsteroidBelt.Interfaces
 
         public void AddOneKill(){
             killCount++;
-            enemiesLeft = 25 - killCount;
+            enemiesLeft = enemiesToFight - killCount;
             UpdateKillText();
         }
 
         public void UpdatePhase(){
             if (phaseOfBattle.Equals("Field_Phase")){
                 phaseOfBattle = "Squad_Phase";
+                phasesAnnounce.SetTrigger("BossAppears");
             }
             else if (phaseOfBattle.Equals("Squad_Phase")){
-                shopManager.OpenShop();
+                EndGame();
             }
         }
 
         public void NextLevel(){
             phaseOfBattle = "Field_Phase";
-            enemiesLeft = 25;
+            enemiesLeft = enemiesToFight;
+            UpdateKillText();
             currentLevel++;
         }
 

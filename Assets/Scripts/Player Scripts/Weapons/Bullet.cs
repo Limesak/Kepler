@@ -29,11 +29,11 @@ namespace AsteroidBelt.Player_Scripts.Weapons
         }
 
         public void FixedUpdate(){
-            previousPos = transform.localPosition;
-            Vector2 direction = transform.localPosition;
+            previousPos = transform.position;
+            Vector2 direction = transform.position;
             direction += travelDirection * bulletSpeed * Time.deltaTime;
-            transform.localPosition = direction;
-            newPos = transform.localPosition;
+            transform.position = direction;
+            newPos = transform.position;
 
             DetectCollision();
         }
@@ -43,13 +43,22 @@ namespace AsteroidBelt.Player_Scripts.Weapons
         }
 
         private void DetectCollision(){
-            int mask = 1 << 3;
+            int mask = 1 << 3 | 1 << 7;
 
             RaycastHit hit;
 
             if(Physics.Linecast(previousPos, newPos, out hit, mask)){
-                OnPlayerFireHit?.Invoke();
-                DistributeDamage(hit.transform.gameObject);
+
+                switch (hit.transform.gameObject.layer){
+                    case 3:
+                        OnPlayerFireHit?.Invoke();
+                        DistributeDamage(hit.transform.gameObject);
+                        break;
+                    case 7:
+                        OnPlayerFireHit?.Invoke();
+                        Destroy(gameObject);
+                        break;
+                }
             }
         }
 

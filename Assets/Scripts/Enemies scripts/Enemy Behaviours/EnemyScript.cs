@@ -64,7 +64,6 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
             {
                 return false;
             }
-
         }
 
         private Vector2 FindClearPath()

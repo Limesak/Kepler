@@ -16,7 +16,7 @@ namespace AsteroidBelt.Player_Scripts
         private float dashTimer;
         public float dashCooldown;
         private float rotationMagnitude = 40;
-        private float rotationSpeed = 10;
+        private float rotationSpeed = 0.7f;
 
         [Header("Playerstate checks")]
         private bool canMove;
