@@ -50,7 +50,7 @@ MonoBehaviour:
   collectibleName: Gold
   lifeSpan: 0
   movementSpeed: 4
-  scoreToGive: 1
+  scoreToGive: 5
   rb: {fileID: 2948379894103164238}
 --- !u!54 &2948379894103164238
 Rigidbody:

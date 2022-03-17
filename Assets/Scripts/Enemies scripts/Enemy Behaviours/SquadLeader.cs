@@ -150,7 +150,7 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
             Debug.Log("rotate boss");
 
             Vector3 rotationLeft = new Vector3(0f,0f, 90f);
-            Vector3 rotationRight = new Vector3(0f,0f, 90f);
+            Vector3 rotationRight = new Vector3(0f,0f, -90f);
             Vector3 goToRotation = rotationLeft;
 
             switch (weakPointsRemaining){
