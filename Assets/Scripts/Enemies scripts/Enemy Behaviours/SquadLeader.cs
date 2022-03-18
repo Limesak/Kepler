@@ -9,7 +9,7 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
     {
         [Header("Combat stats")]
         [SerializeField] private float delayBetweenActions = 4f;
-        public int minionsPerWave;
+        private int minionsPerWave = 5;
         private bool fightStarted, followPlayerMoves;
         private string previousAction;
         private int actionsBfrExposedWeakness = 0;
@@ -121,7 +121,7 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
         private void SpawnMinions(){
             Debug.Log("spawn minion");
 
-            int randomSide = Random.Range(1, 3);
+            int randomSide = Random.Range(1, 2);
 
             StartCoroutine(DelayedSpawns());
 

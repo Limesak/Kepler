@@ -4766,21 +4766,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 883492318116148707, guid: e62a2bc74a5560f4caa922ec36c05475,
+    - target: {fileID: 939147588961167179, guid: e62a2bc74a5560f4caa922ec36c05475,
         type: 3}
-      propertyPath: basicEnemies
-      value: 
-      objectReference: {fileID: 1050946176780698, guid: 085b5f0d91977264a91a3f5c2f3b8b02,
-        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 2701324882463200870, guid: e62a2bc74a5560f4caa922ec36c05475,
         type: 3}
       propertyPath: m_Name
       value: SquadLeader
-      objectReference: {fileID: 0}
-    - target: {fileID: 2701324882463200870, guid: e62a2bc74a5560f4caa922ec36c05475,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3511840216771751358, guid: e62a2bc74a5560f4caa922ec36c05475,
         type: 3}
@@ -4837,5 +4831,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6658074171014417828, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687233212334078517, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8644388570412509856, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot.Array.data[0]
+      value: 
+      objectReference: {fileID: 993435006}
+    - target: {fileID: 8644388570412509856, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot.Array.data[1]
+      value: 
+      objectReference: {fileID: 1428986556}
+    - target: {fileID: 8644388570412509856, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot.Array.data[2]
+      value: 
+      objectReference: {fileID: 1720791518}
+    - target: {fileID: 8644388570412509856, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot.Array.data[3]
+      value: 
+      objectReference: {fileID: 38221330}
+    - target: {fileID: 8644388570412509856, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: leftMinionsSpot.Array.data[4]
+      value: 
+      objectReference: {fileID: 261009714}
+    - target: {fileID: 8644388570412509856, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot.Array.data[0]
+      value: 
+      objectReference: {fileID: 1549877973}
+    - target: {fileID: 8644388570412509856, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot.Array.data[1]
+      value: 
+      objectReference: {fileID: 1430553523}
+    - target: {fileID: 8644388570412509856, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot.Array.data[2]
+      value: 
+      objectReference: {fileID: 1320583680}
+    - target: {fileID: 8644388570412509856, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot.Array.data[3]
+      value: 
+      objectReference: {fileID: 791909625}
+    - target: {fileID: 8644388570412509856, guid: e62a2bc74a5560f4caa922ec36c05475,
+        type: 3}
+      propertyPath: rightMinionsSpot.Array.data[4]
+      value: 
+      objectReference: {fileID: 22687404}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e62a2bc74a5560f4caa922ec36c05475, type: 3}

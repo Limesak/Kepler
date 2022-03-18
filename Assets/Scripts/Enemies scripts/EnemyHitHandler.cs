@@ -110,7 +110,7 @@ namespace AsteroidBelt.Enemies_scripts
                 lastHitByOtherEnemy = false;
                 target.transform.parent.gameObject.GetComponent<Player>().TakeDamage(collisionDamage);
             }
-            else if(target.layer.Equals(3))
+            else if(target.layer.Equals(3) && target.tag != "Boss")
             {
                 target.transform.parent.gameObject.GetComponent<EnemyHitHandler>().lastHitByOtherEnemy = true;
                 target.transform.parent.gameObject.GetComponent<EnemyHitHandler>().TakeDamage(collisionDamage * 3);

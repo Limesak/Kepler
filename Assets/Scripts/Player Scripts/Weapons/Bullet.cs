@@ -1,6 +1,7 @@
 ﻿using System;
 //using AsteroidBelt.Enemies_scripts;
 using UnityEngine;
+using AsteroidBelt.Enemies_scripts.Enemy_Behaviours;
 
 namespace AsteroidBelt.Player_Scripts.Weapons
 {
@@ -52,7 +53,12 @@ namespace AsteroidBelt.Player_Scripts.Weapons
                 switch (hit.transform.gameObject.layer){
                     case 3:
                         OnPlayerFireHit?.Invoke();
-                        DistributeDamage(hit.transform.gameObject);
+                        if(hit.transform.gameObject.tag.Equals("Boss") && hit.transform.parent.gameObject.GetComponent<SquadLeader>()){
+                            DistributeDamage(hit.transform.parent.gameObject);
+                        }
+                        else{
+                            DistributeDamage(hit.transform.gameObject);
+                        }
                         break;
                     case 7:
                         OnPlayerFireHit?.Invoke();

@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2493789049799968160}
   m_Layer: 3
   m_Name: WeakPoints
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,14 +265,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3511840216771751358}
-  - component: {fileID: 883492318116148707}
+  - component: {fileID: 8644388570412509856}
   m_Layer: 0
   m_Name: SquadLeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3511840216771751358
 Transform:
   m_ObjectHideFlags: 0
@@ -289,7 +289,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &883492318116148707
+--- !u!114 &8644388570412509856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -314,16 +314,26 @@ MonoBehaviour:
   soundWhenTouched: {fileID: 0}
   lastHitByOtherEnemy: 0
   main: {fileID: 0}
-  delayBetweenActions: 4
-  minionsPerWave: 5
+  delayBetweenActions: 0.5
   weakPointsRemaining: 2
-  bossBody: {fileID: 0}
+  bossBody: {fileID: 2588049590693142771}
   leftspawn: {fileID: 2585521823509938161}
   rightspawn: {fileID: 2585503237008930259}
-  leftMinionsSpot: []
-  rightMinionsSpot: []
+  leftMinionsSpot:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rightMinionsSpot:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   minion: {fileID: 6601301919256606279, guid: 80abda5e13751d04f9f1424698d46b61, type: 3}
-  basicEnemies: {fileID: 0}
+  basicEnemies: {fileID: 1050946176780698, guid: 085b5f0d91977264a91a3f5c2f3b8b02,
+    type: 3}
   shot: {fileID: 1631086615930166, guid: e5b8dec30fb777d4fb4d924a399ed54c, type: 3}
 --- !u!1 &6658074171014417828
 GameObject:
@@ -339,7 +349,7 @@ GameObject:
   - component: {fileID: 4693605818620047712}
   m_Layer: 3
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -352,7 +362,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6658074171014417828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: -1.25}
+  m_LocalPosition: {x: 0, y: 3.5, z: -1.25}
   m_LocalScale: {x: 3.5, y: 1, z: 3.5}
   m_Children: []
   m_Father: {fileID: 2493789049799968160}
@@ -396,7 +406,7 @@ MonoBehaviour:
   soundWhenTouched: {fileID: 0}
   lastHitByOtherEnemy: 0
   main: {fileID: 0}
-  bossScript: {fileID: 883492318116148707}
+  bossScript: {fileID: 8644388570412509856}
   weakSpotHealth: 30
 --- !u!54 &4693605818620047712
 Rigidbody:
@@ -428,7 +438,7 @@ GameObject:
   - component: {fileID: 7011493451182918643}
   m_Layer: 3
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -441,7 +451,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6687233212334078517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: -1.25}
+  m_LocalPosition: {x: 0, y: -3.5, z: -1.25}
   m_LocalScale: {x: 3.5, y: 1, z: 3.5}
   m_Children: []
   m_Father: {fileID: 2493789049799968160}
@@ -485,7 +495,7 @@ MonoBehaviour:
   soundWhenTouched: {fileID: 0}
   lastHitByOtherEnemy: 0
   main: {fileID: 0}
-  bossScript: {fileID: 883492318116148707}
+  bossScript: {fileID: 8644388570412509856}
   weakSpotHealth: 30
 --- !u!54 &7011493451182918643
 Rigidbody:
