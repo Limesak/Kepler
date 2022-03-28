@@ -30,6 +30,7 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
         public GameObject minion;
         public GameObject basicEnemies;
         public GameObject shot;
+        private Vector3 shotBaseScale = new Vector3 (0f, 30f, 0f);
 
         void Update(){
             if (transform.position.y > 2)
@@ -202,8 +203,10 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
 
             IEnumerator UseAttack(){
                 yield return new WaitForSeconds(2f);
-                GameObject newShot = Instantiate(shot, transform.position, Quaternion.identity);
-                newShot.GetComponent<bossShot>().SetDirection(transform.forward);
+                shot.SetActive(true);
+                Vector3 newScale = new Vector3(2.5f, 30, 2.5f);
+                shot.transform.DOScale(newScale, 0.5f);
+                shot.GetComponent<CapsuleCollider>().enabled = true;
             }
         }
 
@@ -216,6 +219,9 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
         private void ReturnToIdle(){
             Debug.Log("Return to idle");
             followPlayerMoves = false;
+            shot.SetActive(false);
+            shot.transform.localScale = shotBaseScale;
+            shot.GetComponent<CapsuleCollider>().enabled = true;
             Vector3 baseRotation = new Vector3(0f, 0f, 0f);
             transform.DORotate(baseRotation, 0.5f, RotateMode.Fast);
 

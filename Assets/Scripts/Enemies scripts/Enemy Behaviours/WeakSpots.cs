@@ -8,6 +8,7 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
     {
         public SquadLeader bossScript;
         private bool destroyed;
+        [SerializeField] private ParticleSystem partSystem;
         [SerializeField] private int weakSpotHealth;
 
         public override void TakeDamage(int receivedDamage){
@@ -21,6 +22,10 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
             if(weakSpotHealth <= 0 && !destroyed){
                 DestroyWeakSpot();
             }
+
+            var emission = partSystem.emission;
+
+            emission.enabled = destroyed;
         }
 
         private void DestroyWeakSpot(){

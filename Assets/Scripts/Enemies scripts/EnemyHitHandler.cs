@@ -1,6 +1,7 @@
 using AsteroidBelt.Interfaces;
 using AsteroidBelt.Player_Scripts;
 using UnityEngine;
+using System;
 
 namespace AsteroidBelt.Enemies_scripts
 {
@@ -42,12 +43,15 @@ namespace AsteroidBelt.Enemies_scripts
 
         public virtual void TakeDamage(int receivedDamage){
             health -= receivedDamage;
+            OnBossHit?.Invoke();
         }
+
+        public static event Action OnBossHit;
 
         public void KillThis(int startingHealth, float randomScale)
         {
             if(canDrop && !dropsPoints){
-                int i = Random.Range(1, 4);
+                int i = UnityEngine.Random.Range(1, 4);
                 if(i == 2){
                     DropPickUp();
                 }
@@ -77,7 +81,7 @@ namespace AsteroidBelt.Enemies_scripts
 
         public void DropPickUp(){
             if(main.playerHasBombs){
-                int i = Random.Range(0, itemDrop.Length);
+                int i = UnityEngine.Random.Range(0, itemDrop.Length);
                 Instantiate(itemDrop[i], transform.position, Quaternion.identity);
             }
             else{
@@ -87,7 +91,7 @@ namespace AsteroidBelt.Enemies_scripts
 
         public void DropPoints(int startingHealth, float randomScale){
             for(int i = 0; i < (startingHealth * 3); i++){
-                Instantiate(goldPoints, transform.position + (Vector3)Random.insideUnitCircle * randomScale, transform.rotation);
+                Instantiate(goldPoints, transform.position + (Vector3)UnityEngine.Random.insideUnitCircle * randomScale, transform.rotation);
             }
         }
 
