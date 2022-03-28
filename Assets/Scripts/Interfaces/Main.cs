@@ -2,6 +2,7 @@
 using AsteroidBelt.Player_Scripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace AsteroidBelt.Interfaces
@@ -13,13 +14,14 @@ namespace AsteroidBelt.Interfaces
         private float timeLeft;
 
         [Header("UI references")]
-        [SerializeField] private TMP_Text lifeText;
+        [SerializeField] private Slider lifeSlider;
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private TMP_Text endScreenText;
         [SerializeField] private TMP_Text killText;
         [SerializeField] private TMP_Text timerText;
         [SerializeField] private GameObject endScreen;
         [SerializeField] private GameObject startScreen;
+        [SerializeField] private GameObject pauseScreen;
         [SerializeField] private Animator phasesAnnounce;
 
         [Header("Game current state")]
@@ -76,6 +78,13 @@ namespace AsteroidBelt.Interfaces
 
         void Update(){        
             UpdateScoreHUD();
+
+            if(stateOfPlay.Equals("Paused_Game")){
+                pauseScreen.SetActive(true);
+            }
+            else{
+                pauseScreen.SetActive(false);
+            }
 
             if(timeLeft > 0){
                 timeLeft -= Time.deltaTime;
@@ -151,7 +160,7 @@ namespace AsteroidBelt.Interfaces
         }
 
         public void UpdateLifeHUD(int newLifeValue){
-            lifeText.text = "" + newLifeValue;
+            lifeSlider.value = newLifeValue;
         }
 
         public void UpdateScoreHUD(){

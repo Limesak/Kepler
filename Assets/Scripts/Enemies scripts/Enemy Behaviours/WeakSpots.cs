@@ -11,13 +11,14 @@ namespace AsteroidBelt.Enemies_scripts.Enemy_Behaviours
         [SerializeField] private int weakSpotHealth;
 
         public override void TakeDamage(int receivedDamage){
+            Debug.Log("weak spot shot");
             if(!destroyed){
                 weakSpotHealth -= receivedDamage;
             }
         }
         
         private void Update(){
-            if(weakSpotHealth <= 0){
+            if(weakSpotHealth <= 0 && !destroyed){
                 DestroyWeakSpot();
             }
         }
