@@ -242,8 +242,7 @@ namespace AsteroidBelt.Player_Scripts
 
         private void PlayerDeath()
         {
-            main.EndGame();
-            main.UpdateEndScreenText();
+            main.LoseGame();
             this.gameObject.SetActive(false);
             _transform.position = startPos;
             life = 3;

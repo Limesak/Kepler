@@ -22,6 +22,7 @@ namespace AsteroidBelt.Interfaces
         [SerializeField] private GameObject endScreen;
         [SerializeField] private GameObject startScreen;
         [SerializeField] private GameObject pauseScreen;
+        [SerializeField] private GameObject killScreen;
         [SerializeField] private Animator phasesAnnounce;
 
         [Header("Game current state")]
@@ -167,10 +168,6 @@ namespace AsteroidBelt.Interfaces
             scoreText.text = "" + currentScore;
         }
 
-        public void UpdateEndScreenText(){
-            endScreenText.text = "Your final score is " + scoreText.text;
-        }
-
         public void UpdateKillText(){
             killText.text = "" + enemiesLeft;
         }
@@ -180,10 +177,16 @@ namespace AsteroidBelt.Interfaces
             stateOfPlay = "Game_Over";
         }
 
+        public void LoseGame(){
+            killScreen.SetActive(true);
+            stateOfPlay = "Game_Over";
+        }
+
         public void RestartGame(){
             ResetKills();
             UpdateScoreHUD();
             endScreen.SetActive(false);
+            killScreen.SetActive(false);
             stateOfPlay = "Start_Screen";
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             startScreen.SetActive(true);
